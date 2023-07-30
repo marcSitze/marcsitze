@@ -1,0 +1,130 @@
+/*==================================================
+			Bootstrap 3 Media Queries        
+==================================================*/
+
+
+/* Large Devices (Desktops & Laptops) */
+
+@media (min-width: 1200px) and (max-width: 1299px) {
+ 
+}
+
+
+/* Medium Devices (Landscape Tablets & Medium Desktops) */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.profile-buttons {
+		display: flex;
+	}
+	.profile-buttons a {
+		font-size: 14px;
+	}
+}
+
+
+/* Small Devices (Portrait Tablets & Small Desktops) */
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.app-container {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+	.container {
+		max-width: 100% !important;
+		padding: 0 !important;
+	}
+	.profile {
+		border-radius: 0 !important;
+	}
+	.profile-buttons {
+		display: flex;
+	}
+	.profile-buttons a {
+		font-size: 14px;
+	}
+}
+
+
+/* Extra Small Devices (Landscape Phones & Portrait Tablets) */
+
+@media (max-width: 767px) {
+	.app-container {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+	.container {
+		max-width: 100% !important;
+		padding: 0 !important;
+	}
+	.profile {
+		border-radius: 0 !important;
+	}
+	.profile-content {
+		flex-direction: column;
+		margin-top: 50px;
+	}
+	.profile-img {
+		margin-right: 0 !important;
+		margin-bottom: 40px;
+	}
+	.profile-text {
+		text-align: center;
+	}
+}
+
+
+/* Extra Small Devices (Portrait Phones & Smaller Devices) */
+
+@media (max-width: 480px) {
+	.app-container {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+	.container {
+		max-width: 100% !important;
+		padding: 0 !important;
+	}
+	.profile {
+		border-radius: 0 !important;
+	}
+	.profile-content {
+		flex-direction: column;
+		margin-top: 50px;
+	}
+	.profile-img {
+		width: 238px !important;
+		max-width: 238px !important;
+		height: 238px !important;
+		margin-right: 0 !important;
+		margin-bottom: 20px;
+	}
+	.profile-text {
+		text-align: center;
+	}
+	.profile-text p {
+		margin-bottom: 30px !important;
+	}
+	.profile-text h2 {
+		font-size: 36px !important;
+	}
+	.btn-cv {
+		margin-bottom: 10px;
+	}
+	.about-row {
+		flex-direction: column;
+	}
+	.about-box {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+	.footer-container {
+		flex-direction: column;
+	}
+}
+
+
+/* Extra Small Devices (Portrait Phones & Smaller Devices) */
+
+@media (max-width: 320px) {
+   
+}
