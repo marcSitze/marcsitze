@@ -44,7 +44,7 @@ const Experience = () => {
             </div> */}
             <div className="col-md-6">
               {/* <h3 className="text-light educ-title">Experience</h3> */}
-              {RESUME?.map((data) =>
+              {RESUME?.sort((a, b) => +new Date(b.yearStart as string) - +new Date(a.yearStart as string)).map((data) =>
                 <>
                   {data?.mainType === 'EXPERIENCE' && <ResumeCard key={data.id} data={data} />}
                 </>
