@@ -146,7 +146,7 @@ export const RESUME: IResume[] = [
   {
     id: 6,
     mainType: MAIN_TYPE.EXPERIENCE,
-    title: "Frontend Lead",
+    title: "Frontend Lead (remote)",
     place: "bubo",
     description: "a revolutionary document archiving and management solution. With advanced AI-based search and instant chat like GPT, find your information in an instant",
     yearStart: String(new Date("01/02/2024")),
