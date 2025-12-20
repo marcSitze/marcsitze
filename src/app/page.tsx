@@ -89,7 +89,7 @@ export default function Page() {
 
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [])
+  }, [theme])
 
   return (
     <main className={`min-h- ${isDark ? "bg-black text-white": "bg-white text-black"} overflow-x-hidden`}>
