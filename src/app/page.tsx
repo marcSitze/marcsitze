@@ -6,10 +6,16 @@ import Gallery from "./components/gallery";
 import Hero from "./components/hero";
 import Portfolio from "./components/portfolio";
 import TechStack from "./components/tech-stack";
+import Contact from "./components/contact";
+import { ModeToggle } from "@/components/modeToggle";
+import { useTheme } from "next-themes";
 
 
 export default function Page() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+    const { theme } = useTheme()
+  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+
   useEffect(() => {
     if (!canvasRef.current) return
 
@@ -50,7 +56,7 @@ export default function Page() {
 
       draw() {
         if (!ctx) return
-        ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
+        ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 1)"
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.fill()
@@ -86,15 +92,17 @@ export default function Page() {
   }, [])
 
   return (
-    <main className="min-h- bg-black text-white">
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full bg-black" />
-      <Hero />
+    <main className={`min-h- ${isDark ? "bg-black text-white": "bg-white text-black"} overflow-x-hidden`}>
+      <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full ${isDark ? "bg-black" : "bg-white"}`} />
+      <ModeToggle />
+      <Hero isDark={isDark} />
       {/* <Gallery /> */}
-      <Experience />
+      <Experience isDark={isDark} />
       {/* <Portfolio /> */}
       {/* <Contact /> */}
       <TechStack />
-      <Footer />
+      <Contact isDark={isDark} />
+      <Footer isDark={isDark} />
     </main>
   )
 }

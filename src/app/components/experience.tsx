@@ -10,7 +10,7 @@ import gsap from 'gsap';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const Experience = () => {
+const Experience = ({ isDark }: { isDark: boolean }) => {
   const ref = useRef(null)
   const resumeContainer = useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, { once: true })
@@ -63,7 +63,7 @@ const Experience = () => {
   });
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mb-20">
       <div className="profile profile-dark pt-3 px-4">
         {/* <Navbar /> */}
         <div ref={ref} className="resume-header mx-n4">
@@ -92,14 +92,14 @@ const Experience = () => {
               {/* <h3 className="text-light educ-title">Experience</h3> */}
               {RESUME?.sort((a, b) => +new Date(b.yearStart as string) - +new Date(a.yearStart as string)).map((data) =>
                 <>
-                  {data?.mainType === 'EXPERIENCE' && <ResumeCard key={data.id} data={data} />}
+                  {data?.mainType === 'EXPERIENCE' && <ResumeCard key={data.id} data={data} isDark={isDark} />}
                 </>
               )}
             </div>
           </div>
           {/* <h3 className="text-light certificates-title">Certificates</h3> */}
           <motion.h2
-            className="my-12 text-center text-3xl font-bold tracking-tighter sm:text-4xl"
+            className="my-25 text-center text-3xl font-bold tracking-tighter sm:text-4xl"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.8 }}
@@ -108,7 +108,7 @@ const Experience = () => {
             Certifications
           </motion.h2>
           <div className="row certificates">
-            {CERTIFICATES.map(item => <CertificateCard key={item.id} data={item} />)}
+            {CERTIFICATES.map(item => <CertificateCard key={item.id} data={item} isDark={isDark} />)}
           </div>
           {/* <div className="row skills">
             <div className="col-md-6">

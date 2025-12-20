@@ -1,6 +1,6 @@
-export default function Footer() {
+export default function Footer({ isDark }: { isDark: boolean }) {
   return (
-    <footer className="border-t border-zinc-800 bg-black py-8">
+    <footer className={`border-t ${isDark ? "border-zinc-800 bg-black": "border-zinc-200 bg-white"} py-8`}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-sm text-gray-400">© {new Date().getFullYear()} Marc Sitze. All rights reserved.</p>
@@ -11,7 +11,7 @@ export default function Footer() {
             <a href="#" className="text-gray-400 hover:text-white">
               Twitter
             </a> */}
-            <a href="https://www.linkedin.com/in/marcsitze/" className="text-gray-400 hover:text-white">
+            <a href="https://www.linkedin.com/in/marcsitze/" className={`${isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-black"}`}>
               LinkedIn
             </a>
           </div>

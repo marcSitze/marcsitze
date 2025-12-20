@@ -19,9 +19,9 @@ export default function TechStack() {
 
 
   return (
-    <div ref={ref} className="container mx-auto px-4">
+    <div ref={ref} className="container mx-auto px-4 mb-25">
       <motion.h2
-        className="my-12 text-center text-3xl font-bold tracking-tighter sm:text-4xl"
+        className="my-25 text-center text-3xl font-bold tracking-tighter sm:text-4xl"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.8 }}

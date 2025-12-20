@@ -4,7 +4,7 @@ import { useState } from "react"
 // import { motion, useScroll } from "framer-motion"
 import { motion, useMotionValueEvent, useScroll } from "motion/react"
 
-export default function Hero() {
+export default function Hero({ isDark }: { isDark: boolean }) {
   // const canvasRef = useRef<HTMLCanvasElement>(null)
 
   // useEffect(() => {
