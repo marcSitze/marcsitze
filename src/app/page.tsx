@@ -91,6 +91,8 @@ export default function Page() {
     return () => window.removeEventListener("resize", handleResize)
   }, [theme])
 
+  if (!theme) return null
+
   return (
     <main className={`min-h- ${isDark ? "bg-black text-white": "bg-white text-black"} overflow-x-hidden`}>
       <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full ${isDark ? "bg-black" : "bg-white"}`} />
