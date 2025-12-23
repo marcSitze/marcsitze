@@ -64,7 +64,7 @@ const Experience = ({ isDark }: { isDark: boolean }) => {
 
   return (
     <div className="container mx-auto mb-20">
-      <div className="profile profile-dark pt-3 px-4">
+      <div className="profile profile-dark pt-3 md:px-4">
         {/* <Navbar /> */}
         <div ref={ref} className="resume-header mx-n4">
           <motion.h2

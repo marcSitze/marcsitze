@@ -10,10 +10,14 @@ import {
 } from "framer-motion";
 import { Clock, Mail, MapPin, PhoneCall } from "lucide-react";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Contact = ({ isDark }: { isDark?: boolean }) => {
   const ref = useRef<HTMLDivElement | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const cardWrapperRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true });
   const isMobile =
     typeof window !== "undefined" ? window.innerWidth <= 768 : false;
@@ -22,6 +26,49 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIncrement(latest);
   });
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const img = imageRef.current;
+    const wrapper = cardWrapperRef.current;
+    const cardNode = wrapper?.querySelector('div[data-slot="card"]') as HTMLElement | null;
+
+    if (img) {
+      gsap.fromTo(
+        img,
+        { x: -80, opacity: 0, scale: 0.98 },
+        {
+          x: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: { trigger: img, start: "top 90%", toggleActions: "play none none reverse" },
+        }
+      );
+    }
+
+    if (cardNode) {
+      gsap.fromTo(
+        cardNode,
+        { x: 80, opacity: 0, rotate: 1 },
+        {
+          x: 0,
+          opacity: 1,
+          rotate: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: cardNode, start: "top 90%", toggleActions: "play none none reverse" },
+        }
+      );
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      gsap.killTweensOf([img as Element, cardNode as Element]);
+    };
+  }, []);
 
   const contactMethods = [
     {
@@ -68,12 +115,13 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
       >
         Get in Touch
       </motion.h2>
-      <div className="container grid gap-6 md:grid-cols-2 mx-auto px-4 mb-20">
+      <div className="container grid gap-6 md:grid-cols-2 mx-auto md:px-4 mb-20">
         <div>
-          <img className="rounded-md" src={MarcSitze} alt="Marc Sitze" />
+           <img ref={imageRef} className="rounded-md" src={MarcSitze} alt="Marc Sitze" />
         </div>
         <div>
-          <Card className="flex flex-col justify-center h-full">
+           <div ref={cardWrapperRef} style={{ display: "contents" }}>
+            <Card className="flex flex-col justify-center h-full">
             <div className="mx-6">
               <h1 className="text-2xl font-bold mb-5">Contact Me</h1>
               <p className="mb-0">
@@ -93,7 +141,8 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
                 />
               ))}
             </CardContent>
-          </Card>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
@@ -113,8 +162,46 @@ function ContactItem({
   title: string;
   detail: string | React.ReactNode;
 }) {
+  const itemRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    const el = itemRef.current;
+    if (!el) return;
+
+    const iconEl = el.querySelector('svg, img') as Element | null;
+
+    const tween = gsap.fromTo(
+      el,
+      { y: 18, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: { trigger: el, start: "top 92%", toggleActions: "play none none reverse" },
+      }
+    );
+
+    let iconTween: GSAPTween | null = null;
+    if (iconEl) {
+      iconTween = gsap.fromTo(
+        iconEl,
+        { scale: 0.85, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)", delay: 0.05 }
+      );
+    }
+
+    return () => {
+      if (tween && tween.scrollTrigger) {
+        tween.scrollTrigger.kill();
+      }
+      tween.kill();
+      if (iconTween) iconTween.kill();
+    };
+  }, []);
+
   return (
-    <div className="w-full my-6">
+    <div ref={itemRef} className="w-full my-6" data-contact-item>
       <p className="font-semibold text-gray-500">{title}</p>
       <div className="flex items-center py-2 mb-6">
         <div className="mr-4">{icon}</div>

@@ -1,14 +1,13 @@
 "use client";
+import { ModeToggle } from "@/components/modeToggle";
+import Reveal from "@/components/reveal";
+import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
+import Contact from "./components/contact";
 import Experience from "./components/experience";
 import Footer from "./components/footer";
-import Gallery from "./components/gallery";
 import Hero from "./components/hero";
-import Portfolio from "./components/portfolio";
 import TechStack from "./components/tech-stack";
-import Contact from "./components/contact";
-import { ModeToggle } from "@/components/modeToggle";
-import { useTheme } from "next-themes";
 
 
 export default function Page() {
@@ -97,14 +96,23 @@ export default function Page() {
     <main className={`min-h- ${isDark ? "bg-black text-white": "bg-white text-black"} overflow-x-hidden`}>
       <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full ${isDark ? "bg-black" : "bg-white"}`} />
       <ModeToggle />
-      <Hero isDark={isDark} />
+      <Reveal className="mb-12 px-4">
+        <Hero isDark={isDark} />
+      </Reveal>
       {/* <Gallery /> */}
-      <Experience isDark={isDark} />
+      <Reveal className="mb-12 px-4">
+        <Experience isDark={isDark} />
+      </Reveal>
       {/* <Portfolio /> */}
-      {/* <Contact /> */}
-      <TechStack />
-      <Contact isDark={isDark} />
-      <Footer isDark={isDark} />
+      <Reveal className="mb-12 px-4">
+        <TechStack />
+      </Reveal>
+      <Reveal className="mb-12 px-4">
+        <Contact isDark={isDark} />
+      </Reveal>
+      {/* <Reveal className="mb-12 px-4"> */}
+        <Footer isDark={isDark} />
+      {/* </Reveal> */}
     </main>
   )
 }

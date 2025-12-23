@@ -5,6 +5,7 @@ import { technologies } from "@/data/tech";
 import { motion, useInView, useMotionValueEvent, useScroll } from "framer-motion";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import Reveal from "@/components/reveal";
 
 
 export default function TechStack() {
@@ -19,7 +20,7 @@ export default function TechStack() {
 
 
   return (
-    <div ref={ref} className="container mx-auto px-4 mb-25">
+    <div ref={ref} className="container mx-auto md:px-4 mb-25">
       <motion.h2
         className="my-25 text-center text-3xl font-bold tracking-tighter sm:text-4xl"
         initial={{ opacity: 0 }}
@@ -31,20 +32,22 @@ export default function TechStack() {
       </motion.h2>
       <div className="grid gap-6 md:grid-cols-2">
         {technologies.map((tech) => (
-          <Card key={tech.category} className="p-6">
-            <h3 className="text-lg font-semibold mb-4">{tech.category}</h3>
-            <div className="flex flex-wrap gap-2">
-              {tech.skills.map((skill) => (
-                <Badge
-                  key={skill.name}
-                  className="badge flex items-center justify-between rounded-md bg-primary/10 px-2 py-1 text-sm font-medium text-primary hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
-                >
-                  <Image src={skill.icon} width={20} height={20} alt="icon" />
-                  <p>{skill.name}</p>
-                </Badge>
-              ))}
-            </div>
-          </Card>
+          <Reveal key={tech.category} useContents>
+            <Card className="p-6 w-full">
+              <h3 className="text-lg font-semibold mb-4">{tech.category}</h3>
+              <Reveal className="flex flex-wrap gap-2" stagger={0.06} y={16} duration={0.6}>
+                {tech.skills.map((skill) => (
+                  <Badge
+                    key={skill.name}
+                    className="badge flex items-center justify-between rounded-md bg-primary/10 px-2 py-1 text-sm font-medium text-primary hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
+                  >
+                    <Image src={skill.icon} width={20} height={20} alt="icon" />
+                    <p>{skill.name}</p>
+                  </Badge>
+                ))}
+              </Reveal>
+            </Card>
+          </Reveal>
         ))}
       </div>
     </div>
