@@ -85,6 +85,7 @@ export const RESUME: IResume[] = [
     mainType: MAIN_TYPE.EXPERIENCE,
     title: "Front-End Developer",
     place: "PNBOOKING",
+    link: "https://www.linkedin.com/company/pntec-ltd",
     description: "Develoement of the marketplace new web interfaces and improving user experience on the website",
     yearStart: String(new Date(1601078400000)),
     yearEnd: String(new Date(1609459200000))
@@ -94,6 +95,7 @@ export const RESUME: IResume[] = [
     mainType: MAIN_TYPE.EXPERIENCE,
     title: "Front-End Developer",
     place: "PNTEC-LTD",
+    link: "https://www.linkedin.com/company/pntec-ltd",
     description: "Project initialisation and setup, Creation of web interfaces from Adobe XD design and API integration from a headless CMS (Strapi)",
     yearStart: String(new Date(1609718400000)),
     yearEnd: String(new Date(1613088000000))
@@ -103,6 +105,7 @@ export const RESUME: IResume[] = [
     mainType: MAIN_TYPE.EXPERIENCE,
     title: "Fullstack developer",
     place: "REFRAICHE",
+    link: "https://www.linkedin.com/company/pntec-ltd",
     description: "Creation of new web interfaces for the web app, Implementing new API features and integrating them in the front end, Integration of mobile payment methods and paypal",
     yearStart: String(new Date(1609718400000)),
     yearEnd: String(new Date(1613088000000))
@@ -121,6 +124,7 @@ export const RESUME: IResume[] = [
     mainType: MAIN_TYPE.EXPERIENCE,
     title: "Software Developer",
     place: "Gateway/Beone",
+    link: "https://www.alaxione.fr/",
     description: "Developing Alaxione mobile patients which is \n an application that permits patients to book appointments with doctors through a mobile app",
     yearStart: String(new Date(1641168000000)),
     yearEnd: String(new Date(1648771200000))
@@ -130,6 +134,7 @@ export const RESUME: IResume[] = [
     mainType: MAIN_TYPE.EXPERIENCE,
     title: "Software Developer",
     place: "Gateway/Beone",
+    link: "https://www.alaxione.fr/",
     description: "Developing Alaxione mobile patients which is an application that permits doctors to communicate with other doctors and patients through a mobile app",
     yearStart: String(new Date(1649030400000)),
     yearEnd: String(new Date(1653609600000))
@@ -139,6 +144,7 @@ export const RESUME: IResume[] = [
     mainType: MAIN_TYPE.EXPERIENCE,
     title: "Software Engineer",
     place: "Maviance",
+    link: "https://maviance.com/",
     description: "I played a key role in developing an innovative customer payment portal and restructuring the existing project. This platform was designed to simplify and secure the payment process, providing a seamless experience for users (merchant, corporate)",
     yearStart: String(new Date("2022/11/01")),
     yearEnd: String(new Date("2024/08/30"))
@@ -148,6 +154,7 @@ export const RESUME: IResume[] = [
     mainType: MAIN_TYPE.EXPERIENCE,
     title: "Frontend Lead (remote)",
     place: "bubo",
+    link: "https://www.bubobu.bo/",
     description: "a revolutionary document archiving and management solution. With advanced AI-based search and instant chat like GPT, find your information in an instant",
     yearStart: String(new Date("01/02/2024")),
     yearEnd: String(new Date("2025/06/30"))

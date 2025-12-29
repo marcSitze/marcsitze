@@ -31,6 +31,7 @@ export type IResume = {
 	mainType: MAIN_TYPE,
 	title: string,
 	place: string,
+	link?: string,
 	yearStart?: string,
 	yearEnd?: string,
 	description: string

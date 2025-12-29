@@ -32,7 +32,9 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
 
     const img = imageRef.current;
     const wrapper = cardWrapperRef.current;
-    const cardNode = wrapper?.querySelector('div[data-slot="card"]') as HTMLElement | null;
+    const cardNode = wrapper?.querySelector(
+      'div[data-slot="card"]'
+    ) as HTMLElement | null;
 
     if (img) {
       gsap.fromTo(
@@ -44,7 +46,11 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
           scale: 1,
           duration: 1.2,
           ease: "power3.out",
-          scrollTrigger: { trigger: img, start: "top 90%", toggleActions: "play none none reverse" },
+          scrollTrigger: {
+            trigger: img,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
         }
       );
     }
@@ -59,7 +65,11 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
           rotate: 0,
           duration: 1.1,
           ease: "power3.out",
-          scrollTrigger: { trigger: cardNode, start: "top 90%", toggleActions: "play none none reverse" },
+          scrollTrigger: {
+            trigger: cardNode,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
         }
       );
     }
@@ -90,7 +100,11 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
         </p>
       ),
       title: "Whatsapp Number",
-      detail: <Link target="_blank" href="https://wa.me/+23799576276">+237 99576276</Link>,
+      detail: (
+        <Link target="_blank" href="https://wa.me/+23799576276">
+          +237 99576276
+        </Link>
+      ),
     },
     {
       icon: <MapPin size={25} />,
@@ -117,30 +131,35 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
       </motion.h2>
       <div className="container grid gap-6 md:grid-cols-2 mx-auto md:px-4 mb-20">
         <div>
-           <img ref={imageRef} className="rounded-md" src={MarcSitze} alt="Marc Sitze" />
+          <img
+            ref={imageRef}
+            className="rounded-md"
+            src={MarcSitze}
+            alt="Marc Sitze - Frontend Developer"
+          />
         </div>
         <div>
-           <div ref={cardWrapperRef} style={{ display: "contents" }}>
+          <div ref={cardWrapperRef} style={{ display: "contents" }}>
             <Card className="flex flex-col justify-center h-full">
-            <div className="mx-6">
-              <h1 className="text-2xl font-bold mb-5">Contact Me</h1>
-              <p className="mb-0">
-                I&apos;d love to hear from you! Whether you have a question
-                about my services, pricing, or anything else, feel free to reach
-                out.
-              </p>
-            </div>
-            <CardContent>
-              {contactMethods.map((method, index) => (
-                <ContactItem
-                  key={index}
-                  icon={method.icon}
-                  title={method.title}
-                  detail={method.detail}
-                  isLast={index === contactMethods.length - 1 ? true : false}
-                />
-              ))}
-            </CardContent>
+              <div className="mx-6">
+                <h1 className="text-2xl font-bold mb-5">Contact Me</h1>
+                <p className="mb-0">
+                  I&apos;d love to hear from you! Whether you have a question
+                  about my services, pricing, or anything else, feel free to
+                  reach out.
+                </p>
+              </div>
+              <CardContent>
+                {contactMethods.map((method, index) => (
+                  <ContactItem
+                    key={index}
+                    icon={method.icon}
+                    title={method.title}
+                    detail={method.detail}
+                    isLast={index === contactMethods.length - 1 ? true : false}
+                  />
+                ))}
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -168,7 +187,7 @@ function ContactItem({
     const el = itemRef.current;
     if (!el) return;
 
-    const iconEl = el.querySelector('svg, img') as Element | null;
+    const iconEl = el.querySelector("svg, img") as Element | null;
 
     const tween = gsap.fromTo(
       el,
@@ -178,7 +197,11 @@ function ContactItem({
         opacity: 1,
         duration: 0.6,
         ease: "power2.out",
-        scrollTrigger: { trigger: el, start: "top 92%", toggleActions: "play none none reverse" },
+        scrollTrigger: {
+          trigger: el,
+          start: "top 92%",
+          toggleActions: "play none none reverse",
+        },
       }
     );
 
@@ -187,7 +210,13 @@ function ContactItem({
       iconTween = gsap.fromTo(
         iconEl,
         { scale: 0.85, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)", delay: 0.05 }
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.45,
+          ease: "back.out(1.4)",
+          delay: 0.05,
+        }
       );
     }
 
