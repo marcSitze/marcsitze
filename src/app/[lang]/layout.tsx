@@ -1,11 +1,11 @@
 // import { Geist, Geist_Mono } from "next/font/google";
 import { MarcBlue, MarcSitze } from "@/assets";
 import { ThemeProvider } from "@/components/theme-provider";
+import { i18n } from "@/i18n-config";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { LocaleType } from "../dictionaries";
 import "../globals.css";
-import { i18n } from "@/i18n-config";
-import { getDictionary, LocaleType } from "../dictionaries";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -20,9 +20,10 @@ import { getDictionary, LocaleType } from "../dictionaries";
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: "en" | "fr" };
+  params: Promise<{ lang: "en" | "fr" }>;
 }) {
-  const isFr = params.lang === "fr";
+  const lang = (await params).lang;
+  const isFr = lang === "fr";
   return {
     title: isFr
       ? "Marc Sitze | Développeur React & Next.js"
@@ -66,7 +67,8 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale: LocaleType) => ({ lang: locale }));
 }
 
-type Params = Promise<{ lang: string }>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Params = any;
 
 export default async function RootLayout({
   children,
@@ -76,7 +78,6 @@ export default async function RootLayout({
   params: Params;
 }) {
   const lang = (await params).lang;
-  const dictionary = await getDictionary(lang as LocaleType);
 
   return (
     <html lang={lang}>
