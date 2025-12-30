@@ -1,0 +1,27 @@
+{
+  "hero": {
+    "title": "JavaScript Fullstack Developer"
+  },
+  "work": {
+    "title": "Work Experience"
+  },
+  "certifications": {
+    "title": "Certifications"
+  },
+  "techStack": {
+    "title": "Tech Stack"
+  },
+  "getinTouch": {
+    "title": "Get in Touch",
+    "contactMe": "Contact Me",
+    "tagLine": "I'd love to hear from you! Whether you have a question about my services, pricing, or anything else, feel free to reach out.",
+    "emailAddress": "Email Address",
+    "phoneNumber": "Phone Number",
+    "whatsappNumber": "Whatsapp Number",
+    "location": "Location",
+    "workingHours": "Working Hours"
+  },
+  "footer": {
+    "tagLine": "React & Next.js Developer based in Cameroon. All rights reserved."
+  }
+}

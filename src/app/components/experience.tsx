@@ -1,25 +1,39 @@
 "use client";
-import { CERTIFICATES, RESUME } from '@/data/resume';
-import { motion, useInView, useMotionValueEvent, useScroll } from 'framer-motion';
-import { useRef, useState } from 'react';
-import CertificateCard from './certificateCard';
-import ResumeCard from './resumeCard';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/all';
-import gsap from 'gsap';
+import { CERTIFICATES, RESUME } from "@/data/resume";
+import {
+  motion,
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
+import { useRef, useState } from "react";
+import CertificateCard from "./certificateCard";
+import ResumeCard from "./resumeCard";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import { getDictionary, LocaleType } from "../dictionaries";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const Experience = ({ isDark }: { isDark: boolean }) => {
-  const ref = useRef(null)
-  const resumeContainer = useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(ref, { once: true })
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth <= 768 : false;
-  const { scrollY } = useScroll()
-  const [increment, setIncrement] = useState(0)
+const Experience = ({
+  isDark,
+  dictionary
+}: {
+  isDark: boolean;
+  lang?: LocaleType;
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}) => {
+  const ref = useRef(null);
+  const resumeContainer = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, { once: true });
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false;
+  const { scrollY } = useScroll();
+  const [increment, setIncrement] = useState(0);
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setIncrement(latest)
-  })
+    setIncrement(latest);
+  });
 
   useGSAP(() => {
     // gsap.to(".resume-header", {
@@ -43,7 +57,9 @@ const Experience = ({ isDark }: { isDark: boolean }) => {
     //     trigger: ".container",
     //   }
     // })
-    const resumeCards = resumeContainer.current ? gsap.utils.toArray(resumeContainer.current.children) : [];
+    const resumeCards = resumeContainer.current
+      ? gsap.utils.toArray(resumeContainer.current.children)
+      : [];
     resumeCards.forEach((card, index) => {
       const element = card as HTMLElement;
       gsap.from(element, {
@@ -57,7 +73,7 @@ const Experience = ({ isDark }: { isDark: boolean }) => {
         opacity: 0,
         y: 50,
         duration: 0.6,
-        delay: index * 0.2
+        delay: index * 0.2,
       });
     });
   });
@@ -74,7 +90,7 @@ const Experience = ({ isDark }: { isDark: boolean }) => {
             transition={{ duration: 0.8 }}
             style={{ scale: isMobile ? 1 : increment / 1000 + 1 }}
           >
-            Work Experience
+            {dictionary.work.title}
           </motion.h2>
         </div>
         <div className="educ-container">
@@ -90,11 +106,17 @@ const Experience = ({ isDark }: { isDark: boolean }) => {
             </div> */}
             <div ref={resumeContainer} className="resume-container col-md-6">
               {/* <h3 className="text-light educ-title">Experience</h3> */}
-              {RESUME?.sort((a, b) => +new Date(b.yearStart as string) - +new Date(a.yearStart as string)).map((data) =>
+              {RESUME?.sort(
+                (a, b) =>
+                  +new Date(b.yearStart as string) -
+                  +new Date(a.yearStart as string)
+              ).map((data) => (
                 <>
-                  {data?.mainType === 'EXPERIENCE' && <ResumeCard key={data.id} data={data} isDark={isDark} />}
+                  {data?.mainType === "EXPERIENCE" && (
+                    <ResumeCard key={data.id} data={data} isDark={isDark} />
+                  )}
                 </>
-              )}
+              ))}
             </div>
           </div>
           {/* <h3 className="text-light certificates-title">Certificates</h3> */}
@@ -105,10 +127,12 @@ const Experience = ({ isDark }: { isDark: boolean }) => {
             transition={{ duration: 0.8 }}
             style={{ scale: isMobile ? 1 : increment / 1000 + 1 }}
           >
-            Certifications
+            {dictionary.certifications.title}
           </motion.h2>
           <div className="row certificates">
-            {CERTIFICATES.map(item => <CertificateCard key={item.id} data={item} isDark={isDark} />)}
+            {CERTIFICATES.map((item) => (
+              <CertificateCard key={item.id} data={item} isDark={isDark} />
+            ))}
           </div>
           {/* <div className="row skills">
             <div className="col-md-6">
@@ -124,6 +148,6 @@ const Experience = ({ isDark }: { isDark: boolean }) => {
       </div>
     </div>
   );
-}
+};
 
-export default Experience
+export default Experience;

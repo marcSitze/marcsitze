@@ -1,0 +1,27 @@
+{
+  "hero": {
+    "title": "Développeur JavaScript Full Stack"
+  },
+  "work": {
+    "title": "Expérience professionnelle"
+  },
+  "certifications": {
+    "title": "Certifications"
+  },
+  "techStack": {
+    "title": "Stack Technique"
+  },
+  "getinTouch": {
+    "title": "Me contacter",
+    "contactMe": "Contactez-moi",
+    "tagLine": "Je serais ravi de vous lire ! Que vous ayez une question sur mes services, mes tarifs ou tout autre sujet, n'hésitez pas à me contacter.",
+    "emailAddress": "Adresse e-mail",
+    "phoneNumber": "Numéro de téléphone",
+    "whatsappNumber": "Numéro Whatsapp",
+    "location": "Localisation",
+    "workingHours": "Heures de travail"
+  },
+  "footer": {
+    "tagLine": "Développeur React & Next.js basé au Cameroun. Tous droits réservés."
+  }
+}

@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Marc Sitze — Personal Website
 
-## Getting Started
+My personal website and portfolio, built to showcase my projects, technical skills, and experience as a **React & Next.js Developer**.
+The site is fully responsive, SEO-friendly, and available in **English and French**.
 
-First, run the development server:
+👉 Live demo: https://marcsitze.dev
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 👨‍💻 About Me
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+I am a **React & Next.js developer based in Cameroon**, specializing in building modern, high-performance, and scalable web applications.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+My main focus is **frontend development**, with a strong understanding of JavaScript, TypeScript, and UI architecture. I also have growing experience in **backend development with Node.js**, allowing me to work efficiently across the full stack.
 
-## Learn More
+I am open to **remote opportunities worldwide** and enjoy working on products where performance, user experience, and clean code matter.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Frontend
 
-## Deploy on Vercel
+- React
+- Next.js (App Router)
+- TypeScript
+- JavaScript (ES6+)
+- Tailwind CSS
+- CSS Modules
+- Material UI
+- Shadcn UI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Backend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js
+- Express.js
+- Nest.js
+- Mongo/mongoose
+- REST APIs
+- Prisma (basic)
+- Authentication & API integration
+
+### Tools & Practices
+
+- Git & GitHub
+- ESLint & Prettier
+- Responsive Design
+- SEO best practices
+- Performance optimization
+- Component-driven development
+- Clean Architecture
+
+---
+
+## 📂 Featured Projects
+
+### 🔹Job-Finding Application
+
+A bilingual (English / French) application designed to help users find small jobs and earn extra income.
+
+**Highlights**
+
+- Multi-language support
+- User-friendly UI
+- Scalable architecture
+- Real-world use case
+
+**Tech**: React, Next.js, TypeScript, Shadcn UI, Tailwind CSS
+🔗 Repository: https://github.com/marcSitze/warap-work
+👉 Live demo: https://warap-work.vercel.app
+
+
+
+---
+
+## 🌍 International & Bilingual
+
+- 🇬🇧 English
+- 🇫🇷 French
+
+The website is designed with **international SEO** and **remote hiring** in mind.
+
+---
+
+## 📈 Goals
+
+- Build scalable, real-world React & Next.js applications
+- Grow deeper expertise in backend development
+- Collaborate with international teams
+- Continuously improve performance, accessibility, and SEO
+
+---
+
+## 📬 Contact
+
+- Portfolio: https://marcsitze.dev
+- GitHub: https://github.com/marcSitze
+- LinkedIn: https://linkedin.com/in/marcsitze
+

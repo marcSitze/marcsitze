@@ -13,8 +13,16 @@ import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getDictionary, LocaleType } from "../dictionaries";
 
-const Contact = ({ isDark }: { isDark?: boolean }) => {
+const Contact = ({
+  isDark,
+  dictionary
+}: {
+  isDark?: boolean;
+  lang?: LocaleType;
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const cardWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -83,12 +91,12 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
   const contactMethods = [
     {
       icon: <Mail size={25} />,
-      title: "Email Address",
+      title: dictionary.getinTouch.emailAddress,
       detail: "marcsitze01@gmail.com",
     },
     {
       icon: <PhoneCall size={25} />,
-      title: "Phone Number",
+      title: dictionary.getinTouch.phoneNumber,
       detail: "+237 699576276",
     },
     {
@@ -99,7 +107,7 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
           </Link>
         </p>
       ),
-      title: "Whatsapp Number",
+      title: dictionary.getinTouch.whatsappNumber,
       detail: (
         <Link target="_blank" href="https://wa.me/+23799576276">
           +237 99576276
@@ -108,12 +116,12 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
     },
     {
       icon: <MapPin size={25} />,
-      title: "Location",
+      title: dictionary.getinTouch.location,
       detail: "Douala, Cameroon",
     },
     {
       icon: <Clock size={25} />,
-      title: "Working Hours",
+      title: dictionary.getinTouch.workingHours,
       detail: "Mon-Sun 8:00 AM - 5:00 PM",
     },
   ];
@@ -127,7 +135,7 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
         transition={{ duration: 0.8 }}
         style={{ scale: isMobile ? 1 : increment / 1000 + 1 }}
       >
-        Get in Touch
+        {dictionary.getinTouch.title}
       </motion.h2>
       <div className="container grid gap-6 md:grid-cols-2 mx-auto md:px-4 mb-20">
         <div>
@@ -142,11 +150,9 @@ const Contact = ({ isDark }: { isDark?: boolean }) => {
           <div ref={cardWrapperRef} style={{ display: "contents" }}>
             <Card className="flex flex-col justify-center h-full">
               <div className="mx-6">
-                <h1 className="text-2xl font-bold mb-5">Contact Me</h1>
+                <h1 className="text-2xl font-bold mb-5">{dictionary.getinTouch.contactMe}</h1>
                 <p className="mb-0">
-                  I&apos;d love to hear from you! Whether you have a question
-                  about my services, pricing, or anything else, feel free to
-                  reach out.
+                  {dictionary.getinTouch.tagLine}
                 </p>
               </div>
               <CardContent>

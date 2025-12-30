@@ -32,6 +32,7 @@ export type IResume = {
 	title: string,
 	place: string,
 	link?: string,
+	logo?: string,
 	yearStart?: string,
 	yearEnd?: string,
 	description: string
@@ -41,6 +42,7 @@ export type ICertificate = {
 	id?: ID,
 	title: string,
 	abrev: string,
+	logo?: string,
 	yearStart?: string,
 	yearEnd?: string,
 	link: string

@@ -1,12 +1,12 @@
 export default function sitemap() {
   return [
     {
-      url: "https://marcsitze.dev",
+      url: "https://marcsitze.dev/en",
       lastModified: new Date(),
     },
-    // {
-    //   url: "https://marcsitze.dev/projects",
-    //   lastModified: new Date(),
-    // },
+    {
+      url: "https://marcsitze.dev/fr",
+      lastModified: new Date(),
+    },
   ];
 }

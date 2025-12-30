@@ -3,13 +3,19 @@ import { ModeToggle } from "@/components/modeToggle";
 import Reveal from "@/components/reveal";
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
-import Contact from "./components/contact";
-import Experience from "./components/experience";
-import Footer from "./components/footer";
-import Hero from "./components/hero";
-import TechStack from "./components/tech-stack";
+import Contact from "../components/contact";
+import Experience from "../components/experience";
+import Footer from "../components/footer";
+import Hero from "../components/hero";
+import TechStack from "../components/tech-stack";
+import { getDictionary, LocaleType } from "../dictionaries";
 
-export default function Page() {
+export default function HomePage({
+  dictionary,
+}: {
+  lang: LocaleType;
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
   const isDark =
@@ -110,21 +116,21 @@ export default function Page() {
       />
       <ModeToggle />
       <Reveal className="mb-12 px-4">
-        <Hero isDark={isDark} />
+        <Hero isDark={isDark} dictionary={dictionary} />
       </Reveal>
       {/* <Gallery /> */}
       <Reveal className="mb-12 px-4">
-        <Experience isDark={isDark} />
+        <Experience isDark={isDark} dictionary={dictionary} />
       </Reveal>
       {/* <Portfolio /> */}
       <Reveal className="mb-12 px-4">
-        <TechStack />
+        <TechStack dictionary={dictionary} />
       </Reveal>
       <Reveal className="mb-12 px-4">
-        <Contact isDark={isDark} />
+        <Contact isDark={isDark} dictionary={dictionary} />
       </Reveal>
       {/* <Reveal className="mb-12 px-4"> */}
-      <Footer isDark={isDark} />
+      <Footer isDark={isDark} dictionary={dictionary} />
       {/* </Reveal> */}
     </main>
   );
