@@ -1,0 +1,22 @@
+image: node:20-alpine
+
+stages:
+  - install
+  - build
+
+before_script:
+  - node -v
+  - npm -v
+
+install_ci:
+  stage: install
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+
+build_ci:
+  stage: build
+  script:
+    - npm run build
