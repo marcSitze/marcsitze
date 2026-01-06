@@ -96,6 +96,3 @@ The website is designed with **international SEO** and **remote hiring** in mind
 - Portfolio: https://marcsitze.dev
 - GitHub: https://github.com/marcSitze
 - LinkedIn: https://linkedin.com/in/marcsitze
-
-
-Some changes in the readme
