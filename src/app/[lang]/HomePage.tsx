@@ -110,7 +110,7 @@ export default function HomePage({
     >
       <canvas
         ref={canvasRef}
-        className={`absolute inset-0 h-full w-full ${
+        className={`fixed inset-0 h-full w-full ${
           isDark ? "bg-black" : "bg-white"
         }`}
       />
