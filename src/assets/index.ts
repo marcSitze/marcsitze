@@ -2,7 +2,7 @@
 // import LacompossionDashboard from '../../public/lacompassion-dashboard.png';
 export const Lacompassion = "/lacompassion.png";
 export const LacompossionDashboard = "/lacompassion-dashboard.png";
-export const MarcSitze = "/marcsitze_ai.jpeg";
+export const MarcSitze = "/marcsitze.png";
 export const WhatsappIcon = "/whatsapp2.png";
 export const MarcBlue = "marcblue.png"
 export const BuboLogo = "/bubo_bubo_logo.jpeg"
