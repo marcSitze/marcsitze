@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio"
+  },
   "hero": {
     "title": "JavaScript Fullstack Developer"
   },
@@ -23,5 +28,56 @@
   },
   "footer": {
     "tagLine": "React & Next.js Developer based in Cameroon. All rights reserved."
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "all": "All",
+    "web": "Web App",
+    "mobile": "Mobile App",
+    "seeAll": "See all projects"
+  },
+  "about": {
+    "title": "About Me",
+    "bioTitle": "My Bio",
+    "quotesTitle": "Inspirational Quotes",
+    "passionsTitle": "Passions",
+    "tryThisYearTitle": "Things I'd like to try this year",
+    "getToKnowMe": "GET TO KNOW ME",
+    "contactMeBtn": "Get in Touch",
+    "viewResumeBtn": "View Resume",
+    "quotesContent": [
+      "\"The only way to do great work is to love what you do.\" - Steve Jobs",
+      "\"Code is like humor. When you have to explain it, it’s bad.\" - Cory House"
+    ],
+    "passions": [
+      {
+        "title": "Open Source & Collaboration",
+        "description": "Believing in the power of shared knowledge by building and contributing to open projects."
+      },
+      {
+        "title": "Clean & Accessible UIs",
+        "description": "Crafting pixel-perfect, highly responsive interfaces that everyone can use seamlessly."
+      },
+      {
+        "title": "Continuous Learning",
+        "description": "Constantly pushing the limits of technology, learning new paradigms, frameworks, and patterns."
+      },
+      {
+        "title": "Global Exploration & Travel",
+        "description": "Gaining new perspectives, cultures, and creative inspiration by exploring the world."
+      }
+    ],
+    "tryThisYear": [
+      {
+        "title": "AI Integration & LLM Orchestration",
+        "description": "Building context-aware applications using vector databases and agent frameworks.",
+        "status": "In Progress"
+      },
+      {
+        "title": "Open Source Contributions",
+        "description": "Actively contributing to core JavaScript frameworks and utility libraries.",
+        "status": "Active"
+      }
+    ]
   }
 }

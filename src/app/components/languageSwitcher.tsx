@@ -13,15 +13,15 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <div className="z-50 fixed right-15 top-5">
-      <ul className="flex">
+    <div className="flex items-center">
+      <ul className="flex space-x-2 text-sm font-medium">
         {i18n.locales.map((locale, idx) => {
           return (
-            <li key={locale}>
-              <Link className="pr-2 pl-2" href={redirectedPathname(locale)}>
-                {locale.toUpperCase()}
+            <li key={locale} className="flex items-center">
+              <Link className="px-2 hover:text-primary transition-colors uppercase" href={redirectedPathname(locale)}>
+                {locale}
               </Link>
-              {idx === 0 && "|"}
+              {idx === 0 && <span className="text-muted-foreground">|</span>}
             </li>
           );
         })}

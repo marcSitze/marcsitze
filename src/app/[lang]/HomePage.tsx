@@ -8,10 +8,12 @@ import Experience from "../components/experience";
 import Footer from "../components/footer";
 import Hero from "../components/hero";
 import TechStack from "../components/tech-stack";
+import Portfolio from "../components/portfolio";
 import { getDictionary, LocaleType } from "../dictionaries";
 
 export default function HomePage({
   dictionary,
+  lang,
 }: {
   lang: LocaleType;
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
@@ -114,7 +116,6 @@ export default function HomePage({
           isDark ? "bg-black" : "bg-white"
         }`}
       />
-      <ModeToggle />
       <Reveal className="mb-12 px-4">
         <Hero isDark={isDark} dictionary={dictionary} />
       </Reveal>
@@ -122,7 +123,9 @@ export default function HomePage({
       <Reveal className="mb-12 px-4">
         <Experience isDark={isDark} dictionary={dictionary} />
       </Reveal>
-      {/* <Portfolio /> */}
+      {/* <Reveal className="mb-12 px-4">
+        <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />
+      </Reveal> */}
       <Reveal className="mb-12 px-4">
         <TechStack dictionary={dictionary} />
       </Reveal>

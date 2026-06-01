@@ -1,22 +1,18 @@
-// import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { MarcBlue, MarcSitze } from "@/assets";
 import { ThemeProvider } from "@/components/theme-provider";
 import { i18n } from "@/i18n-config";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { LocaleType } from "../dictionaries";
+import { LocaleType, getDictionary } from "../dictionaries";
 import "../globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import Navbar from "@/app/components/navbar";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+});
 
 export async function generateMetadata({
   params,
@@ -79,6 +75,7 @@ export default async function RootLayout({
   params: Params;
 }) {
   const lang = (await params).lang;
+  const dictionary = await getDictionary(lang);
 
   return (
     <html lang={lang}>
@@ -112,16 +109,17 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body
-      // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${outfit.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Navbar dictionary={dictionary} lang={lang} />
+          <main className="pt-16">
+            {children}
+          </main>
           <Analytics />
         </ThemeProvider>
       </body>

@@ -90,8 +90,7 @@ export const USER: IUser = {
   title: "Software Developer",
   description:
     "I'm develop, deliver and implement data-driven web applications for clients. I write well designed testable code following best practices for software development, creating website layout, integrating data from back-end services",
-  cvLink:
-    "https://drive.google.com/file/d/1UfMMUnYlLfeyZ6B9qUhzVLF3SkQrfW2H/view?usp=sharing",
+  cvLink: "/marc-sitze-fullstack.pdf",
 };
 
 export const RESUME: IResume[] = [
@@ -240,55 +239,7 @@ export const CERTIFICATES: ICertificate[] = [
   },
 ];
 
-export const PORTFOLIO: IPortfolio[] = [
-  {
-    id: 0,
-    title: "Events app",
-    description:
-      "Events is a web app where users can create an \nevent, view other users events and participate to others events all that in real time",
-    imageLink: [
-      "https://drive.google.com/uc?export=view&id=1N7GkkXKeMZScwosU8rDQHv4EXdcqfvII",
-    ],
-    link: "http://events-f.herokuapp.com/login",
-    mainType: PROJECT_TYPE.WEB,
-    technos: "reactjs,nodejs,expressjs,mongodb,sockets",
-  },
-  {
-    id: 1,
-    title: "Alaxione Patient",
-    mainType: PROJECT_TYPE.MOBILE,
-    link: "",
-    imageLink: [
-      "https://drive.google.com/uc?export=view&id=1ZTsGnVElyuNqvyVQ1wdk9LS0FhBY1gkd",
-    ],
-    technos: "reactnative,redux",
-    description:
-      "Alaxione patient is a mobile app that recall patients to know went they have an appointment with a Doctor or book an appointment",
-  },
-  {
-    id: 2,
-    title: "Afromeme",
-    mainType: PROJECT_TYPE.MOBILE,
-    link: "https://afromeme.herokuapp.com/",
-    imageLink: [
-      "https://drive.google.com/uc?export=view&id=1VngAl124vLqfUUnvNuhFTFJ5jpO6xlQK",
-    ],
-    technos: "html,css,bootstrap,jquery,nodejs,expressjs,mongodb",
-    description:
-      "Afromeme is a social network where all meme lovers can post and share their favorite memes to all the world",
-  },
-  {
-    id: 3,
-    title: "Pntec-ltd",
-    mainType: PROJECT_TYPE.WEB,
-    link: "https://drive.google.com/file/d/1ALn4dn1qEYxYOal0MtD8Re5Lsk0aEcyj/view?usp=sharing",
-    imageLink: [
-      "https://drive.google.com/uc?export=view&id=1CcnEzu-RMViOjjWD7yOVleVMwwqUHRBE",
-    ],
-    technos: "nuxtjs/vuejs,strapi,bootstrap",
-    description: "Pntec-ltd is an IT services based company",
-  },
-];
+export const PORTFOLIO: IPortfolio[] = [];
 
 export const all = [
   {

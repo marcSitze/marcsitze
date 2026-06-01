@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "portfolio": "Portfolio"
+  },
   "hero": {
     "title": "Développeur JavaScript Full Stack"
   },
@@ -23,5 +28,56 @@
   },
   "footer": {
     "tagLine": "Développeur React & Next.js basé au Cameroun. Tous droits réservés."
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "all": "Tout",
+    "web": "Appli Web",
+    "mobile": "Appli Mobile",
+    "seeAll": "Voir tous les projets"
+  },
+  "about": {
+    "title": "À propos de moi",
+    "bioTitle": "Ma Biographie",
+    "quotesTitle": "Citations inspirantes",
+    "passionsTitle": "Passions",
+    "tryThisYearTitle": "Ce que j'aimerais essayer cette année",
+    "getToKnowMe": "À PROPOS",
+    "contactMeBtn": "Me contacter",
+    "viewResumeBtn": "Voir mon CV",
+    "quotesContent": [
+      "\"La seule façon de faire du bon travail est d'aimer ce que vous faites.\" - Steve Jobs",
+      "\"Le code est comme l'humour. Quand on doit l'expliquer, c'est qu'il est mauvais.\" - Cory House"
+    ],
+    "passions": [
+      {
+        "title": "Open Source & Collaboration",
+        "description": "Croire en la force du partage des connaissances en développant et contribuant à des projets ouverts."
+      },
+      {
+        "title": "UIs Propres & Accessibles",
+        "description": "Concevoir des interfaces pixel-perfect et responsives que chacun peut utiliser facilement."
+      },
+      {
+        "title": "Apprentissage Continu",
+        "description": "Repousser sans cesse les limites technologiques en apprenant de nouveaux paradigmes et outils."
+      },
+      {
+        "title": "Exploration & Voyage",
+        "description": "S'inspirer de nouvelles cultures et perspectives en voyageant à travers le monde."
+      }
+    ],
+    "tryThisYear": [
+      {
+        "title": "Intégration d'IA & LLMs",
+        "description": "Créer des applications intelligentes avec des bases de données vectorielles et des agents.",
+        "status": "En cours"
+      },
+      {
+        "title": "Contributions Open Source",
+        "description": "Contribuer activement aux frameworks JavaScript populaires et aux bibliothèques majeures.",
+        "status": "Actif"
+      }
+    ]
   }
 }
