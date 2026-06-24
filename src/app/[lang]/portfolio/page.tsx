@@ -11,10 +11,10 @@ export default async function PortfolioPage({
 
   return (
     <div className="min-h-screen py-10">
-      <div className="flex items-center justify-center h-screen">
+      {/* <div className="flex items-center justify-center h-screen">
         <h1 className="text-4xl font-bold text-center">Coming soon...</h1>
-      </div>
-      {/* <Portfolio dictionary={dictionary} /> */}
+      </div> */}
+      <Portfolio dictionary={dictionary} />
     </div>
   );
 }

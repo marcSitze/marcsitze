@@ -123,9 +123,9 @@ export default function HomePage({
       <Reveal className="mb-12 px-4">
         <Experience isDark={isDark} dictionary={dictionary} />
       </Reveal>
-      {/* <Reveal className="mb-12 px-4">
+      <Reveal className="mb-12 px-4">
         <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />
-      </Reveal> */}
+      </Reveal>
       <Reveal className="mb-12 px-4">
         <TechStack dictionary={dictionary} />
       </Reveal>

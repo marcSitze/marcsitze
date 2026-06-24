@@ -1,4 +1,18 @@
 import {
+  Africafix1,
+  Africafix10,
+  Africafix11,
+  Africafix12,
+  Africafix13,
+  Africafix14,
+  Africafix2,
+  Africafix3,
+  Africafix4,
+  Africafix5,
+  Africafix6,
+  Africafix7,
+  Africafix8,
+  Africafix9,
   AlaxioneLogo,
   BuboLogo,
   FreeCodeCampLogo,
@@ -239,7 +253,30 @@ export const CERTIFICATES: ICertificate[] = [
   },
 ];
 
-export const PORTFOLIO: IPortfolio[] = [];
+export const PORTFOLIO: IPortfolio[] = [
+  {
+    id: 1,
+    imageLink: [
+      Africafix1,
+      Africafix2,
+      Africafix3,
+      Africafix4,
+      Africafix5,
+      Africafix6,
+      Africafix7,
+      Africafix8,
+      Africafix9,
+      Africafix10,
+      Africafix11,
+      Africafix12,
+      Africafix13,
+      Africafix14,
+    ],
+    mainType: PROJECT_TYPE.MOBILE,
+    technos: "react-native, expo, tailwind, typescript, react-query",
+    title: "africafix",
+  },
+];
 
 export const all = [
   {
