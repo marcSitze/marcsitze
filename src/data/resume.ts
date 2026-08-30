@@ -101,10 +101,10 @@ export const services: IService[] = [
 ];
 
 export const SKILLS: ISkills =
-  "html, css, javascript,typescript,bootstrap,jquery,react,react-native,redux,nuxt/vuejs,vuex,nodejs,expressjs,nestjs,mongodb,wordpress,elementor,firebase,json";
+  "html, css, javascript,typescript,bootstrap,jquery,react,react-native,redux,nuxt/vuejs,vuex,nodejs,expressjs,nestjs,laravel,postgresql,mongodb,wordpress,elementor,firebase,json";
 
 export const OTHER_SKILLS =
-  "heroku,strapi,jest,mysql,mvc,cqrs,java,python,c/c++";
+  "docker,redis,heroku,strapi,jest,mysql,mvc,cqrs,java,python,c/c++";
 
 export const USER: IUser = {
   name: "Marc Sitze",

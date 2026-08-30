@@ -30,7 +30,7 @@
 
 ### 👨‍💻 About Me
 
-I am a passionate **Software Engineer and Frontend Lead** who loves transforming complex problems into elegant, fast, and accessible digital products. With extensive expertise in **React, Next.js, TypeScript, and Node.js**, I bring strong technical leadership and clean software architecture to cross-functional global teams.
+I am a passionate **Software Engineer and Frontend Lead** who loves transforming complex problems into elegant, fast, and accessible digital products. With extensive expertise in **React, Next.js, TypeScript, Node.js, and Laravel**, I bring strong technical leadership and clean software architecture to cross-functional global teams.
 
 - 🚀 **Frontend & UI Engineering**: Specialized in building modern, responsive, and SEO-optimized web apps using Next.js (App Router), React 19, Tailwind CSS, Shadcn UI, and state-of-the-art animation libraries (Framer Motion, GSAP).
 - 🏦 **Fintech & AI Industry Experience**: Lead frontend development for **Bubo** (AI-powered document archiving & chat) and engineered high-concurrency payment portals at **Maviance**.
@@ -62,6 +62,7 @@ I am a passionate **Software Engineer and Frontend Lead** who loves transforming
       <img src="https://img.shields.io/badge/Node.js-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js" />
       <img src="https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white" alt="Express" />
       <img src="https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white" alt="NestJS" />
+      <img src="https://img.shields.io/badge/Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel" />
       <img src="https://img.shields.io/badge/REST_APIs-02569B?style=flat-square&logo=postman&logoColor=white" alt="REST APIs" />
       <img src="https://img.shields.io/badge/Strapi-4945FF?style=flat-square&logo=strapi&logoColor=white" alt="Strapi" />
       <img src="https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white" alt="Prisma" />
@@ -78,8 +79,10 @@ I am a passionate **Software Engineer and Frontend Lead** who loves transforming
   <tr>
     <td align="center" width="20%"><strong>Database & Cloud</strong></td>
     <td>
+      <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL" />
       <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB" />
       <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+      <img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white" alt="Redis" />
       <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black" alt="Firebase" />
       <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel" />
     </td>
@@ -87,6 +90,7 @@ I am a passionate **Software Engineer and Frontend Lead** who loves transforming
   <tr>
     <td align="center" width="20%"><strong>DevOps & Tools</strong></td>
     <td>
+      <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker" />
       <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white" alt="Git" />
       <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white" alt="GitHub Actions" />
       <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white" alt="ESLint" />
