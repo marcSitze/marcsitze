@@ -2,6 +2,10 @@
   "nav": {
     "home": "Accueil",
     "about": "À propos",
+    "work": "Projets",
+    "services": "Services",
+    "experience": "Expérience",
+    "contact": "Contact",
     "portfolio": "Portfolio"
   },
   "hero": {

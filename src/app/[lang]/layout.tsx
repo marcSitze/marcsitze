@@ -1,5 +1,4 @@
 import { Outfit } from "next/font/google";
-import { MarcBlue, MarcSitze } from "@/assets";
 import { ThemeProvider } from "@/components/theme-provider";
 import { i18n } from "@/i18n-config";
 import gsap from "gsap";

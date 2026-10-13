@@ -4,11 +4,11 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Floating dock is anchored responsively across mobile, tablet, and desktop viewports with a glassmorphic blurred backdrop.
-- [ ] Navigation items support smooth scrolling to target sections with active section indicator highlighting.
-- [ ] Language toggle allows switching between English and French routes without losing current section scroll position.
-- [ ] Theme toggle smoothly switches between dark and light modes using system-level CSS tokens.
-- [ ] Mobile navigation collapses gracefully or adapts touch targets to prevent misclicks.
-- [ ] Automated tests verify navigation anchor clicks and bilingual route preservation.
+- [x] Floating dock is anchored responsively across mobile, tablet, and desktop viewports with a glassmorphic blurred backdrop.
+- [x] Navigation items support smooth scrolling to target sections with active section indicator highlighting.
+- [x] Language toggle allows switching between English and French routes without losing current section scroll position.
+- [x] Theme toggle smoothly switches between dark and light modes using system-level CSS tokens.
+- [x] Mobile navigation collapses gracefully or adapts touch targets to prevent misclicks.
+- [x] Automated tests verify navigation anchor clicks and bilingual route preservation.
