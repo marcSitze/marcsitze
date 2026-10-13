@@ -1,15 +1,18 @@
 "use client";
-import { ModeToggle } from "@/components/modeToggle";
-import Reveal from "@/components/reveal";
+
 import { useTheme } from "next-themes";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import Contact from "../components/contact";
 import Experience from "../components/experience";
 import Footer from "../components/footer";
 import Hero from "../components/hero";
+import ClientMarquee from "../components/clientMarquee";
+import ServicesBento from "../components/servicesBento";
 import TechStack from "../components/tech-stack";
 import Portfolio from "../components/portfolio";
+import InquiryModal from "../components/inquiryModal";
 import { getDictionary, LocaleType } from "../dictionaries";
+import Reveal from "@/components/reveal";
 
 export default function HomePage({
   dictionary,
@@ -18,123 +21,79 @@ export default function HomePage({
   lang: LocaleType;
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { theme } = useTheme();
-  const isDark =
-    theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [inquiryService, setInquiryService] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    setMounted(true);
+  }, []);
 
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  const isDark = mounted ? resolvedTheme === "dark" : true;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  const handleSelectService = (serviceId: string) => {
+    setInquiryService(serviceId);
+    setIsInquiryOpen(true);
+  };
 
-    const particles: Particle[] = [];
-    const particleCount = 100;
-
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.1;
-        this.speedX = Math.random() * 2 - 1;
-        this.speedY = Math.random() * 2 - 1;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.fillStyle = isDark
-          ? "rgba(255, 255, 255, 0.5)"
-          : "rgba(0, 0, 0, 1)";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    function animate() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (const particle of particles) {
-        particle.update();
-        particle.draw();
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    const handleResize = () => {
-      if (!canvasRef.current) return;
-      canvasRef.current.width = window.innerWidth;
-      canvasRef.current.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [theme]);
-
-  if (!theme) return null;
+  const handleOpenGeneralInquiry = () => {
+    setInquiryService(undefined);
+    setIsInquiryOpen(true);
+  };
 
   return (
-    <main
-      className={`min-h- ${
-        isDark ? "bg-black text-white" : "bg-white text-black"
-      } overflow-x-hidden`}
-    >
-      <canvas
-        ref={canvasRef}
-        className={`fixed inset-0 h-full w-full ${
-          isDark ? "bg-black" : "bg-white"
-        }`}
+    <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
+      {/* Ambient background glows */}
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-sky-500/10 via-indigo-500/5 to-transparent blur-3xl opacity-60 dark:opacity-40" />
+        <div className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-[20%] left-[-10%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-3xl" />
+      </div>
+
+      {/* Hero Section */}
+      <Hero
+        isDark={isDark}
+        lang={lang}
+        dictionary={dictionary}
+        onOpenInquiry={handleOpenGeneralInquiry}
       />
-      <Reveal className="mb-12 px-4">
-        <Hero isDark={isDark} dictionary={dictionary} />
+
+      {/* Social Proof Marquee */}
+      <ClientMarquee isDark={isDark} />
+
+      {/* Flagship Case Studies Showcase */}
+      <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />
+
+      {/* Interactive Services Bento Grid */}
+      <Reveal className="mb-16 px-4">
+        <ServicesBento onSelectService={handleSelectService} isDark={isDark} />
       </Reveal>
-      {/* <Gallery /> */}
-      <Reveal className="mb-12 px-4">
+
+      {/* Career Journey & Experience Section */}
+      <Reveal className="mb-16 px-4">
         <Experience isDark={isDark} dictionary={dictionary} />
       </Reveal>
-      <Reveal className="mb-12 px-4">
-        <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />
-      </Reveal>
-      <Reveal className="mb-12 px-4">
+
+      {/* Technical Stack Section */}
+      <Reveal className="mb-16 px-4">
         <TechStack dictionary={dictionary} />
       </Reveal>
-      <Reveal className="mb-12 px-4">
+
+      {/* Conversion & Contact Section */}
+      <Reveal className="mb-16 px-4">
         <Contact isDark={isDark} dictionary={dictionary} />
       </Reveal>
-      {/* <Reveal className="mb-12 px-4"> */}
+
+      {/* Footer */}
       <Footer isDark={isDark} dictionary={dictionary} />
-      {/* </Reveal> */}
+
+      {/* Global Project Inquiry Modal */}
+      <InquiryModal
+        isOpen={isInquiryOpen}
+        onClose={() => setIsInquiryOpen(false)}
+        initialService={inquiryService}
+      />
     </main>
   );
 }

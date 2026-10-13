@@ -5,27 +5,33 @@ import { i18n, type Locale } from "@/i18n-config";
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
+  const currentLocale = pathname?.split("/")[1] || i18n.defaultLocale;
+
   const redirectedPathname = (locale: Locale) => {
-    if (!pathname) return "/";
+    if (!pathname) return `/${locale}`;
     const segments = pathname.split("/");
     segments[1] = locale;
     return segments.join("/");
   };
 
   return (
-    <div className="flex items-center">
-      <ul className="flex space-x-2 text-sm font-medium">
-        {i18n.locales.map((locale, idx) => {
-          return (
-            <li key={locale} className="flex items-center">
-              <Link className="px-2 hover:text-primary transition-colors uppercase" href={redirectedPathname(locale)}>
-                {locale}
-              </Link>
-              {idx === 0 && <span className="text-muted-foreground">|</span>}
-            </li>
-          );
-        })}
-      </ul>
+    <div className="flex items-center rounded-full bg-white/5 dark:bg-white/10 p-0.5 border border-white/10">
+      {i18n.locales.map((locale) => {
+        const isActive = currentLocale === locale;
+        return (
+          <Link
+            key={locale}
+            href={redirectedPathname(locale)}
+            className={`px-2 py-0.5 text-xs font-semibold rounded-full uppercase transition-all duration-200 ${
+              isActive
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {locale}
+          </Link>
+        );
+      })}
     </div>
   );
 }

@@ -1,17 +1,6 @@
 import {
   Africafix1,
   Africafix10,
-  Africafix11,
-  Africafix12,
-  Africafix13,
-  Africafix14,
-  Africafix15,
-  Africafix16,
-  Africafix17,
-  Africafix18,
-  Africafix19,
-  Africafix20,
-  Africafix21,
   Africafix2,
   Africafix3,
   Africafix4,
@@ -27,9 +16,13 @@ import {
   MavianceLogo,
   PntecLogo,
   SweezLogo,
+  Lacompassion,
+  LacompossionDashboard,
+  MarcSitze,
 } from "@/assets";
 import {
   ICertificate,
+  IServicePackage,
   IPortfolio,
   IResume,
   IService,
@@ -78,25 +71,63 @@ export const socialLinks: ISocialLink[] = [
   },
 ];
 
+export const SERVICE_PACKAGES: IServicePackage[] = [
+  {
+    id: "ai-apps",
+    title: "AI & High-Performance Web Apps",
+    tagline: "Ultra-fast Next.js 15 web apps integrated with real-time conversational AI & LLM workflows.",
+    deliverables: [
+      "Sub-second Next.js 15 App Router architecture",
+      "Streaming RAG & conversational AI interfaces",
+      "Vector search integration (OpenAI, Pinecone)",
+      "Zero-latency optimistic UI with React 19",
+    ],
+    bestFor: "Funded AI startups, document intelligence, and SaaS founders.",
+    badge: "Popular for AI Startups",
+  },
+  {
+    id: "fintech-systems",
+    title: "Fintech, Payments & High-Concurrency Systems",
+    tagline: "Resilient merchant gateways and high-volume transaction portals engineered for reliability.",
+    deliverables: [
+      "Multi-currency payment gateway integrations",
+      "High-concurrency merchant & customer portals",
+      "Idempotent API workflows & audit trails",
+      "Bank-grade security and compliance UI",
+    ],
+    bestFor: "Fintech scale-ups, payment processors, and enterprise portals.",
+    badge: "Enterprise Grade",
+  },
+  {
+    id: "frontend-arch",
+    title: "Frontend Leadership & Design Systems",
+    tagline: "Pixel-perfect component systems, fluid 60FPS animations, and multi-lingual global scalability.",
+    deliverables: [
+      "Tailwind CSS v4 & 21st.dev luxury design systems",
+      "GPU-accelerated GSAP & Framer Motion physics",
+      "Internationalization (EN / FR) with zero layout shift",
+      "Lighthouse 95+ performance optimization audits",
+    ],
+    bestFor: "Companies needing elite frontend leadership and polish.",
+    badge: "Strategic ROI",
+  },
+];
+
 export const services: IService[] = [
   {
     id: 0,
-    title: "Front-end web",
-    description: `I create the technical features for a website's look. I develop the site's layout and integrate graphics, applications (such as a retail checkout tool), and other content. I also write webdesign programs in a variety of computer languages, such as HTML or JavaScript.`,
+    title: "AI & Full-Stack Web Apps",
+    description: "Developing scalable, high-speed web apps with Next.js 15, React 19, TypeScript, and modern AI/LLM integrations that delight users.",
   },
   {
     id: 1,
-    title: "Web interface wireframing",
-    description: `I create the look of a website or interface with regard to
-    photos, color, font type and size, graphics, and layout.
-    They also are responsible for the functionality, usability,
-    and compatibility of the website or interface..`,
+    title: "Fintech & Payment Architectures",
+    description: "Engineering secure, multi-currency payment portals and transaction pipelines capable of processing millions in volume with high uptime.",
   },
   {
     id: 2,
-    title: "Back-end web",
-    description:
-      "I build and maintains the technology needed to power the components which enable the user-facing side of the website to exist. This includes the core application logic, databases, data and application integration, API and other back end processes.",
+    title: "Frontend Leadership & UI Engineering",
+    description: "Building production design systems, 60FPS micro-interactions, responsive cross-platform interfaces, and accessible multilingual applications.",
   },
 ];
 
@@ -108,9 +139,9 @@ export const OTHER_SKILLS =
 
 export const USER: IUser = {
   name: "Marc Sitze",
-  title: "Software Developer",
+  title: "Senior Frontend Lead & Full-Stack Engineer",
   description:
-    "I'm develop, deliver and implement data-driven web applications for clients. I write well designed testable code following best practices for software development, creating website layout, integrating data from back-end services",
+    "Engineering high-performance AI web applications, resilient fintech payment portals, and scalable SaaS products. Over 4 years of technical leadership across distributed teams in Europe, North America, and Africa.",
   cvLink: "/marc-sitze-fullstack.pdf",
 };
 
@@ -263,6 +294,118 @@ export const CERTIFICATES: ICertificate[] = [
 export const PORTFOLIO: IPortfolio[] = [
   {
     id: 1,
+    slug: "bubo-ai",
+    title: "Bubo AI",
+    client: "Bubo (France / Remote)",
+    role: "Frontend Lead",
+    period: "2024 - 2025",
+    category: "ai",
+    mainType: PROJECT_TYPE.WEB,
+    summary:
+      "A revolutionary AI document archiving & management solution featuring instant vector search and GPT-style conversational retrieval.",
+    problem:
+      "Corporate clients struggled with navigating massive archives of unstructured legal and financial documents, losing hundreds of hours to manual search.",
+    solution:
+      "Architected a streaming, conversational web interface built on Next.js 15, integrating real-time document vectorization, sub-300ms retrieval, and multi-document synthesis chat.",
+    impactMetrics: [
+      { label: "Query Retrieval Time", value: "< 350ms" },
+      { label: "Indexed Documents", value: "100k+" },
+      { label: "Task Efficiency", value: "+75%" },
+    ],
+    technologies: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "AI APIs", "Vector DB"],
+    technos: "next.js, react, typescript, tailwind, ai-apis, vector-db",
+    thumbnail: BuboLogo,
+    imageLink: [BuboLogo, MarcSitze],
+    liveUrl: "https://www.bubobu.bo/",
+    link: "https://www.bubobu.bo/",
+    featured: true,
+    description:
+      "AI-driven document archiving and conversational retrieval solution with instant GPT-style search.",
+  },
+  {
+    id: 2,
+    slug: "maviance-payment-portal",
+    title: "Maviance Payment Gateway",
+    client: "Maviance PLC",
+    role: "Software Engineer",
+    period: "2022 - 2024",
+    category: "fintech",
+    mainType: PROJECT_TYPE.WEB,
+    summary:
+      "Enterprise customer and merchant payment portal engineered to process high-volume corporate transactions securely across Central Africa.",
+    problem:
+      "Legacy payment portals experienced transaction drop-offs and poor multi-channel reconciliation for corporate merchants.",
+    solution:
+      "Re-engineered the customer payment portal with resilient session state, multi-currency mobile money/card routing, and automated merchant receipt auditing.",
+    impactMetrics: [
+      { label: "Monthly Transaction Volume", value: "$10M+" },
+      { label: "Payment Success Rate", value: "99.4%" },
+      { label: "Uptime SLA", value: "99.9%" },
+    ],
+    technologies: ["React", "TypeScript", "Node.js", "Express", "REST APIs", "Tailwind CSS"],
+    technos: "react, typescript, node.js, express, rest-apis, tailwind",
+    thumbnail: MavianceLogo,
+    imageLink: [MavianceLogo],
+    liveUrl: "https://maviance.com/",
+    link: "https://maviance.com/",
+    featured: true,
+    description:
+      "High-concurrency merchant and corporate payment gateway processing millions in transactions.",
+  },
+  {
+    id: 3,
+    slug: "warap-work",
+    title: "Warap Work",
+    client: "Warap Work",
+    role: "Full-Stack Engineer & Lead",
+    period: "2023 - 2024",
+    category: "marketplace",
+    mainType: PROJECT_TYPE.WEB,
+    summary:
+      "Bilingual (English & French) micro-jobs marketplace connecting task posters with verified gig workers across Africa and the diaspora.",
+    problem:
+      "Lack of trusted, localized freelance platforms catering to bilingual African talent with localized payment workflows.",
+    solution:
+      "Constructed a scalable Next.js App Router application with full bilingual i18n localization, multi-role escrow dashboards, and instant mobile money payout triggers.",
+    impactMetrics: [
+      { label: "Bilingual Localization", value: "100% EN/FR" },
+      { label: "Escrow Milestone Speed", value: "< 5s" },
+      { label: "Lighthouse Performance", value: "98/100" },
+    ],
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Shadcn UI", "PostgreSQL"],
+    technos: "next.js, react, typescript, tailwind, shadcn-ui, postgresql",
+    thumbnail: Lacompassion,
+    imageLink: [Lacompassion, LacompossionDashboard],
+    liveUrl: "https://warap-work.vercel.app",
+    githubUrl: "https://github.com/marcSitze/warap-work",
+    link: "https://warap-work.vercel.app",
+    featured: true,
+    description:
+      "Bilingual micro-jobs and gig marketplace with localized escrow, multi-role dashboards, and mobile money.",
+  },
+  {
+    id: 4,
+    slug: "africafix-mobile",
+    title: "AfricaFix Mobile",
+    client: "AfricaFix Logistics",
+    role: "Mobile Engineer",
+    period: "2023",
+    category: "mobile",
+    mainType: PROJECT_TYPE.MOBILE,
+    summary:
+      "On-demand logistics and appliance repair service mobile app connecting homeowners with vetted technicians in real time.",
+    problem:
+      "Unreliable local appliance repair scheduling with zero tracking or pricing transparency.",
+    solution:
+      "Engineered an offline-first React Native mobile app with Expo, featuring map-based technician tracking, multi-step booking, and instant push alerts.",
+    impactMetrics: [
+      { label: "Screen Interaction Speed", value: "60 FPS" },
+      { label: "Offline Cache Sync", value: "Instant" },
+      { label: "Customer Rating", value: "4.8 / 5" },
+    ],
+    technologies: ["React Native", "Expo", "TypeScript", "React Query", "Tailwind CSS"],
+    technos: "react-native, expo, tailwind, typescript, react-query",
+    thumbnail: Africafix1,
     imageLink: [
       Africafix1,
       Africafix2,
@@ -274,21 +417,10 @@ export const PORTFOLIO: IPortfolio[] = [
       Africafix8,
       Africafix9,
       Africafix10,
-      Africafix11,
-      Africafix12,
-      Africafix13,
-      Africafix14,
-      Africafix15,
-      Africafix16,
-      Africafix17,
-      Africafix18,
-      Africafix19,
-      Africafix20,
-      Africafix21,
     ],
-    mainType: PROJECT_TYPE.MOBILE,
-    technos: "react-native, expo, tailwind, typescript, react-query",
-    title: "africafix",
+    featured: true,
+    description:
+      "Mobile logistics and repair app with technician scheduling, real-time status updates, and offline caching.",
   },
 ];
 

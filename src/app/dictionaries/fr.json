@@ -2,10 +2,21 @@
   "nav": {
     "home": "Accueil",
     "about": "À propos",
+    "work": "Projets",
+    "services": "Services",
+    "experience": "Expérience",
+    "contact": "Contact",
     "portfolio": "Portfolio"
   },
   "hero": {
-    "title": "Développeur JavaScript Full Stack"
+    "badge": "Disponible pour missions freelance & leadership",
+    "greeting": "Marc Sitze",
+    "title": "Senior Frontend Lead & Ingénieur Full-Stack",
+    "subtitle": "Conception d'applications web IA ultra-performantes, plateformes de paiement fintech et systèmes de design scalables à fort impact commercial.",
+    "primaryCta": "Discuter d'un projet",
+    "secondaryCta": "Explorer les projets",
+    "experienceBadge": "4+ ans d'expérience",
+    "timezone": "UTC+1 • Couverture CET & EST"
   },
   "work": {
     "title": "Expérience professionnelle"
@@ -30,11 +41,21 @@
     "tagLine": "Développeur React & Next.js basé au Cameroun. Tous droits réservés."
   },
   "portfolio": {
-    "title": "Portfolio",
+    "title": "Projets & Études de Cas",
+    "subtitle": "Solutions d'ingénierie concrètes avec impact mesurable en IA, Fintech et applications web scalables.",
     "all": "Tout",
+    "ai": "IA & LLM",
+    "fintech": "Fintech & Paiements",
     "web": "Appli Web",
     "mobile": "Appli Mobile",
-    "seeAll": "Voir tous les projets"
+    "seeAll": "Voir tous les projets",
+    "viewCaseStudy": "Voir l'étude de cas",
+    "problem": "Le Défi",
+    "solution": "L'Architecture",
+    "impact": "Impact Commercial",
+    "techStack": "Stack Technique",
+    "client": "Client",
+    "role": "Rôle"
   },
   "about": {
     "title": "À propos de moi",
