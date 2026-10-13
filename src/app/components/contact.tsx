@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Mail,
   MapPin,
-  PhoneCall,
   Clock,
   Sparkles,
   MessageSquare,
@@ -15,14 +14,11 @@ import {
   ExternalLink,
   Globe2,
 } from "lucide-react";
-import Link from "next/link";
 import { getDictionary, LocaleType } from "../dictionaries";
 import InquiryModal from "./inquiryModal";
 
 export default function Contact({
-  isDark = true,
   dictionary,
-  lang,
 }: {
   isDark?: boolean;
   lang?: LocaleType;

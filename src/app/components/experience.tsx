@@ -16,9 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { getDictionary, LocaleType } from "../dictionaries";
 
 export default function Experience({
-  isDark = true,
   dictionary,
-  lang,
 }: {
   isDark?: boolean;
   lang?: LocaleType;

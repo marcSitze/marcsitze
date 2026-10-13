@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import {
   BuboLogo,
   MavianceLogo,
@@ -28,7 +27,7 @@ const partners: Partner[] = [
   { name: "HackerRank", logo: HackerRankLogo, label: "Verified React Professional" },
 ];
 
-export default function ClientMarquee({ isDark = true }: { isDark?: boolean }) {
+export default function ClientMarquee(_props?: { isDark?: boolean }) {
   // Duplicate array for seamless infinite looping
   const marqueeList = [...partners, ...partners];
 

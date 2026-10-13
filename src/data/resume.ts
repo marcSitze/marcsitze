@@ -1,17 +1,6 @@
 import {
   Africafix1,
   Africafix10,
-  Africafix11,
-  Africafix12,
-  Africafix13,
-  Africafix14,
-  Africafix15,
-  Africafix16,
-  Africafix17,
-  Africafix18,
-  Africafix19,
-  Africafix20,
-  Africafix21,
   Africafix2,
   Africafix3,
   Africafix4,
@@ -33,7 +22,6 @@ import {
 } from "@/assets";
 import {
   ICertificate,
-  ICaseStudy,
   IServicePackage,
   IPortfolio,
   IResume,

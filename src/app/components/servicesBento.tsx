@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import { SERVICE_PACKAGES } from "@/data/resume";
 import {
   Sparkles,
@@ -19,12 +18,10 @@ import { Button } from "@/components/ui/button";
 
 export default function ServicesBento({
   onSelectService,
-  isDark = true,
 }: {
   onSelectService?: (serviceId: string) => void;
   isDark?: boolean;
 }) {
-  const [activeCodeTab, setActiveCodeTab] = useState<"stream" | "rag">("stream");
 
   const handleInquire = (serviceId: string) => {
     if (onSelectService) {
@@ -89,7 +86,7 @@ export default function ServicesBento({
                 </div>
 
                 <div className="space-y-1.5 text-zinc-300">
-                  <p className="text-zinc-500">// Real-time streaming token pipeline</p>
+                  <p className="text-zinc-500">{"// Real-time streaming token pipeline"}</p>
                   <p>
                     <span className="text-sky-400">const</span> response = <span className="text-indigo-400">await</span> aiClient.<span className="text-yellow-300">streamQuery</span>(&#123;
                   </p>

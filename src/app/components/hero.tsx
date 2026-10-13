@@ -6,8 +6,6 @@ import { ArrowRight, Sparkles, CheckCircle2, Globe2, ShieldCheck } from "lucide-
 import { getDictionary, LocaleType } from "../dictionaries";
 
 export default function Hero({
-  isDark = true,
-  lang,
   dictionary,
   onOpenInquiry,
 }: {
