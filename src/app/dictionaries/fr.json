@@ -41,11 +41,21 @@
     "tagLine": "Développeur React & Next.js basé au Cameroun. Tous droits réservés."
   },
   "portfolio": {
-    "title": "Portfolio",
+    "title": "Projets & Études de Cas",
+    "subtitle": "Solutions d'ingénierie concrètes avec impact mesurable en IA, Fintech et applications web scalables.",
     "all": "Tout",
+    "ai": "IA & LLM",
+    "fintech": "Fintech & Paiements",
     "web": "Appli Web",
     "mobile": "Appli Mobile",
-    "seeAll": "Voir tous les projets"
+    "seeAll": "Voir tous les projets",
+    "viewCaseStudy": "Voir l'étude de cas",
+    "problem": "Le Défi",
+    "solution": "L'Architecture",
+    "impact": "Impact Commercial",
+    "techStack": "Stack Technique",
+    "client": "Client",
+    "role": "Rôle"
   },
   "about": {
     "title": "À propos de moi",

@@ -4,11 +4,11 @@
 
 **Blocked by:** 01: Core Domain Models and SEO Structured Metadata Engine, 03: Ambient Spotlight Hero with Live Availability Beacon & Primary CTAs
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Category filter (All, AI, Fintech, Mobile) dynamically updates the displayed case study cards with fluid layout transitions.
-- [ ] Cards feature subtle 3D parallax tilt and border spotlight glow following pointer coordinates on desktop.
-- [ ] Case study modal or expandable drawer allows users to switch between Problem, Solution, Architecture, and Impact tabs.
-- [ ] Flagship work (Bubo AI, Maviance, Warap Work, AfricaFix) renders complete business and technical metrics.
-- [ ] Mobile view disables intensive 3D tilt calculations to preserve battery and touch responsiveness.
-- [ ] Automated tests verify category filtering, case study data binding, and modal tab interactions.
+- [x] Category filter (All, AI, Fintech, Mobile) dynamically updates the displayed case study cards with fluid layout transitions.
+- [x] Cards feature subtle 3D parallax tilt and border spotlight glow following pointer coordinates on desktop.
+- [x] Case study modal or expandable drawer allows users to switch between Problem, Solution, Architecture, and Impact tabs.
+- [x] Flagship work (Bubo AI, Maviance, Warap Work, AfricaFix) renders complete business and technical metrics.
+- [x] Mobile view disables intensive 3D tilt calculations to preserve battery and touch responsiveness.
+- [x] Automated tests verify category filtering, case study data binding, and modal tab interactions.
