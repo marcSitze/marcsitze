@@ -4,11 +4,11 @@
 
 **Blocked by:** 03: Ambient Spotlight Hero with Live Availability Beacon & Primary CTAs
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Infinite marquee loops seamlessly at 60FPS using GPU-accelerated CSS animations without jank or scroll stutter.
-- [ ] Brand logos render crisply with high contrast in both dark and light themes.
-- [ ] Hovering over the marquee pauses or slows the translation slightly to allow closer inspection.
-- [ ] Responsive gradient masks fade the left and right edges smoothly into the background.
-- [ ] Respects `prefers-reduced-motion` by displaying a clean static wrap grid if user animation is disabled.
-- [ ] Automated tests verify proper rendering of all partner logos and accessible aria attributes.
+- [x] Infinite marquee loops seamlessly at 60FPS using GPU-accelerated CSS animations without jank or scroll stutter.
+- [x] Brand logos render crisply with high contrast in both dark and light themes.
+- [x] Hovering over the marquee pauses or slows the translation slightly to allow closer inspection.
+- [x] Responsive gradient masks fade the left and right edges smoothly into the background.
+- [x] Respects `prefers-reduced-motion` by displaying a clean static wrap grid if user animation is disabled.
+- [x] Automated tests verify proper rendering of all partner logos and accessible aria attributes.

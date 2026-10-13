@@ -6,6 +6,7 @@ import Contact from "../components/contact";
 import Experience from "../components/experience";
 import Footer from "../components/footer";
 import Hero from "../components/hero";
+import ClientMarquee from "../components/clientMarquee";
 import TechStack from "../components/tech-stack";
 import Portfolio from "../components/portfolio";
 import { getDictionary, LocaleType } from "../dictionaries";
@@ -38,6 +39,9 @@ export default function HomePage({
 
       {/* Hero Section */}
       <Hero isDark={isDark} lang={lang} dictionary={dictionary} />
+
+      {/* Social Proof Marquee */}
+      <ClientMarquee isDark={isDark} />
 
       {/* Experience Section */}
       <Reveal className="mb-16 px-4">
