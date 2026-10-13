@@ -10,6 +10,7 @@ import ClientMarquee from "../components/clientMarquee";
 import ServicesBento from "../components/servicesBento";
 import TechStack from "../components/tech-stack";
 import Portfolio from "../components/portfolio";
+import InquiryModal from "../components/inquiryModal";
 import { getDictionary, LocaleType } from "../dictionaries";
 import Reveal from "@/components/reveal";
 
@@ -22,6 +23,8 @@ export default function HomePage({
 }) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [inquiryService, setInquiryService] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     setMounted(true);
@@ -30,8 +33,13 @@ export default function HomePage({
   const isDark = mounted ? resolvedTheme === "dark" : true;
 
   const handleSelectService = (serviceId: string) => {
-    const contactEl = document.getElementById("contact");
-    if (contactEl) contactEl.scrollIntoView({ behavior: "smooth" });
+    setInquiryService(serviceId);
+    setIsInquiryOpen(true);
+  };
+
+  const handleOpenGeneralInquiry = () => {
+    setInquiryService(undefined);
+    setIsInquiryOpen(true);
   };
 
   return (
@@ -44,7 +52,12 @@ export default function HomePage({
       </div>
 
       {/* Hero Section */}
-      <Hero isDark={isDark} lang={lang} dictionary={dictionary} />
+      <Hero
+        isDark={isDark}
+        lang={lang}
+        dictionary={dictionary}
+        onOpenInquiry={handleOpenGeneralInquiry}
+      />
 
       {/* Social Proof Marquee */}
       <ClientMarquee isDark={isDark} />
@@ -74,6 +87,13 @@ export default function HomePage({
 
       {/* Footer */}
       <Footer isDark={isDark} dictionary={dictionary} />
+
+      {/* Global Project Inquiry Modal */}
+      <InquiryModal
+        isOpen={isInquiryOpen}
+        onClose={() => setIsInquiryOpen(false)}
+        initialService={inquiryService}
+      />
     </main>
   );
 }

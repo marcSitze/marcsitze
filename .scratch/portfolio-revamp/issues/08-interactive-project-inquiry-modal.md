@@ -4,12 +4,12 @@
 
 **Blocked by:** 03: Ambient Spotlight Hero with Live Availability Beacon & Primary CTAs, 05: 3D Tilt Case Study Showcase with Problem-Solution-Impact Tabs, 06: Interactive Services Bento Grid with Live Performance Demos
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Modal opens smoothly with background blur when triggered by hero CTAs, service cards, or navigation links.
-- [ ] Multi-step or tabbed scope selector allows clients to pick project type, budget tier, and estimated timeline.
-- [ ] Direct WhatsApp CTA dynamically formats and opens a URL with a prefilled message (`https://wa.me/...&text=...`) matching the client's chosen scope.
-- [ ] Email copy button writes the address to system clipboard and triggers an immediate visual toast notification ("Copied to clipboard!").
-- [ ] Timezone transparency notes (UTC+1 with full European and US East Coast working hours overlap) are clearly communicated.
-- [ ] Modal includes accessible keyboard navigation (ESC to close, focus trapping) and ARIA attributes.
-- [ ] Automated tests verify modal trigger handling, scope selection state, and WhatsApp link generation.
+- [x] Modal opens smoothly with background blur when triggered by hero CTAs, service cards, or navigation links.
+- [x] Multi-step or tabbed scope selector allows clients to pick project type, budget tier, and estimated timeline.
+- [x] Direct WhatsApp CTA dynamically formats and opens a URL with a prefilled message (`https://wa.me/...&text=...`) matching the client's chosen scope.
+- [x] Email copy button writes the address to system clipboard and triggers an immediate visual toast notification ("Copied to clipboard!").
+- [x] Timezone transparency notes (UTC+1 with full European and US East Coast working hours overlap) are clearly communicated.
+- [x] Modal includes accessible keyboard navigation (ESC to close, focus trapping) and ARIA attributes.
+- [x] Automated tests verify modal trigger handling, scope selection state, and WhatsApp link generation.
