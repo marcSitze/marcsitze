@@ -4,11 +4,11 @@
 
 **Blocked by:** 01: Core Domain Models and SEO Structured Metadata Engine
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] ScrollTrigger or motion beam smoothly traces vertical progress as each experience milestone enters the viewport.
-- [ ] Residual Bootstrap classes (`row`, `col-md-6`, `badge-pill`) are completely eliminated in favor of clean Tailwind CSS v4 layout tokens.
-- [ ] Milestone cards feature company logos, localized dates, role titles, and technology tags with clean hover states.
-- [ ] Certification credentials render external verification links with accessible security attributes (`rel="noopener noreferrer"`).
-- [ ] Timeline degrades gracefully into a clean static vertical line on mobile screens or when reduced motion is preferred.
-- [ ] Automated tests verify chronological ordering and external credential link validity.
+- [x] ScrollTrigger or motion beam smoothly traces vertical progress as each experience milestone enters the viewport.
+- [x] Residual Bootstrap classes (`row`, `col-md-6`, `badge-pill`) are completely eliminated in favor of clean Tailwind CSS v4 layout tokens.
+- [x] Milestone cards feature company logos, localized dates, role titles, and technology tags with clean hover states.
+- [x] Certification credentials render external verification links with accessible security attributes (`rel="noopener noreferrer"`).
+- [x] Timeline degrades gracefully into a clean static vertical line on mobile screens or when reduced motion is preferred.
+- [x] Automated tests verify chronological ordering and external credential link validity.
