@@ -4,10 +4,10 @@
 
 **Blocked by:** 01: Core Domain Models and SEO Structured Metadata Engine
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Bento Grid renders responsive asymmetric cards with glassmorphic styling and subtle gradient borders.
-- [ ] Cards package clear deliverables, ideal client profiles ("Best for funded startups..."), and strategic value propositions.
-- [ ] Interactive micro-widgets (Lighthouse performance circle, live code editor snippet preview) function smoothly without blocking scroll.
-- [ ] Direct "Inquire about this service" button triggers the project inquiry modal with the relevant service pre-selected.
-- [ ] Automated tests verify responsive bento grid rendering and service pre-selection triggers.
+- [x] Bento Grid renders responsive asymmetric cards with glassmorphic styling and subtle gradient borders.
+- [x] Cards package clear deliverables, ideal client profiles ("Best for funded startups..."), and strategic value propositions.
+- [x] Interactive micro-widgets (Lighthouse performance circle, live code editor snippet preview) function smoothly without blocking scroll.
+- [x] Direct "Inquire about this service" button triggers the project inquiry modal with the relevant service pre-selected.
+- [x] Automated tests verify responsive bento grid rendering and service pre-selection triggers.

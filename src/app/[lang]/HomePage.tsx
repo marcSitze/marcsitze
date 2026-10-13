@@ -7,6 +7,7 @@ import Experience from "../components/experience";
 import Footer from "../components/footer";
 import Hero from "../components/hero";
 import ClientMarquee from "../components/clientMarquee";
+import ServicesBento from "../components/servicesBento";
 import TechStack from "../components/tech-stack";
 import Portfolio from "../components/portfolio";
 import { getDictionary, LocaleType } from "../dictionaries";
@@ -28,6 +29,11 @@ export default function HomePage({
 
   const isDark = mounted ? resolvedTheme === "dark" : true;
 
+  const handleSelectService = (serviceId: string) => {
+    const contactEl = document.getElementById("contact");
+    if (contactEl) contactEl.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
       {/* Ambient background glows */}
@@ -43,14 +49,17 @@ export default function HomePage({
       {/* Social Proof Marquee */}
       <ClientMarquee isDark={isDark} />
 
-      {/* Experience Section */}
+      {/* Flagship Case Studies Showcase */}
+      <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />
+
+      {/* Interactive Services Bento Grid */}
       <Reveal className="mb-16 px-4">
-        <Experience isDark={isDark} dictionary={dictionary} />
+        <ServicesBento onSelectService={handleSelectService} isDark={isDark} />
       </Reveal>
 
-      {/* Flagship Case Studies Showcase */}
+      {/* Career Journey & Experience Section */}
       <Reveal className="mb-16 px-4">
-        <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />
+        <Experience isDark={isDark} dictionary={dictionary} />
       </Reveal>
 
       {/* Technical Stack Section */}
