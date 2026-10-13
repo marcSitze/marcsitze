@@ -4,11 +4,11 @@
 
 **Blocked by:** 01: Core Domain Models and SEO Structured Metadata Engine
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Ambient spotlight reacts smoothly to mouse movement on desktop and presents a subtle static radial glow on touch devices.
-- [ ] Live availability pill pulses with an emerald glowing border and displays current freelance mission availability.
-- [ ] Headline and supporting copy communicate executive engineering authority in AI, Fintech, and high-scale SaaS web apps.
-- [ ] Dual primary CTAs are clearly rendered: "Discuss a Project" triggers contact navigation and "View Case Studies" scrolls smoothly to the showcase section.
-- [ ] No unthrottled continuous 2D canvas loops running in the background; GPU-accelerated transforms are used exclusively.
-- [ ] Automated tests verify presence of availability beacon and primary CTA interactive targets.
+- [x] Ambient spotlight reacts smoothly to mouse movement on desktop and presents a subtle static radial glow on touch devices.
+- [x] Live availability pill pulses with an emerald glowing border and displays current freelance mission availability.
+- [x] Headline and supporting copy communicate executive engineering authority in AI, Fintech, and high-scale SaaS web apps.
+- [x] Dual primary CTAs are clearly rendered: "Discuss a Project" triggers contact navigation and "View Case Studies" scrolls smoothly to the showcase section.
+- [x] No unthrottled continuous 2D canvas loops running in the background; GPU-accelerated transforms are used exclusively.
+- [x] Automated tests verify presence of availability beacon and primary CTA interactive targets.

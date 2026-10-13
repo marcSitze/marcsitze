@@ -9,7 +9,14 @@
     "portfolio": "Portfolio"
   },
   "hero": {
-    "title": "Développeur JavaScript Full Stack"
+    "badge": "Disponible pour missions freelance & leadership",
+    "greeting": "Marc Sitze",
+    "title": "Senior Frontend Lead & Ingénieur Full-Stack",
+    "subtitle": "Conception d'applications web IA ultra-performantes, plateformes de paiement fintech et systèmes de design scalables à fort impact commercial.",
+    "primaryCta": "Discuter d'un projet",
+    "secondaryCta": "Explorer les projets",
+    "experienceBadge": "4+ ans d'expérience",
+    "timezone": "UTC+1 • Couverture CET & EST"
   },
   "work": {
     "title": "Expérience professionnelle"
