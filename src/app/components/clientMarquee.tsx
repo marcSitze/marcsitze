@@ -28,7 +28,7 @@ const partners: Partner[] = [
   { name: "HackerRank", logo: HackerRankLogo, label: "Verified React Professional" },
 ];
 
-export default function ClientMarquee({ isDark: _isDark }: { isDark?: boolean } = {}) {
+export default function ClientMarquee() {
   // Duplicate array for seamless infinite looping
   const marqueeList = [...partners, ...partners];
 

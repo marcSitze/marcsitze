@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { PORTFOLIO } from "@/data/resume";
 import { IPortfolio } from "@/types";
 import { getDictionary } from "../dictionaries";
+import { AnalyticsEvents } from "@/lib/analytics";
 import {
   X,
   ExternalLink,
@@ -105,6 +106,9 @@ export default function Portfolio({
     setSelectedCaseStudy(work);
     setActiveModalTab("overview");
     setCurrentGalleryIndex(0);
+    if (work.slug) {
+      AnalyticsEvents.caseStudyViewed(work.slug);
+    }
   };
 
   const closeModal = () => {

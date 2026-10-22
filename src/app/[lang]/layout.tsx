@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/all";
 import { LocaleType, getDictionary } from "../dictionaries";
 import "../globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Navbar from "@/app/components/navbar";
 
 const outfit = Outfit({
@@ -103,6 +104,9 @@ export default async function RootLayout({
   const lang = (await params).lang;
   const isFr = lang === "fr";
   const dictionary = await getDictionary(lang);
+  const gaId =
+    process.env.GA_ID ||
+    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -229,6 +233,7 @@ export default async function RootLayout({
             {children}
           </main>
           <Analytics />
+          {gaId && <GoogleAnalytics gaId={gaId} />}
         </ThemeProvider>
       </body>
     </html>

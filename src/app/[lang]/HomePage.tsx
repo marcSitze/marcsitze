@@ -60,7 +60,7 @@ export default function HomePage({
       />
 
       {/* Social Proof Marquee */}
-      <ClientMarquee isDark={isDark} />
+      <ClientMarquee />
 
       {/* Flagship Case Studies Showcase */}
       <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />

@@ -76,3 +76,24 @@ test("SEO Enhancements - Dynamic Case Study static params & metadata", async () 
   assert.equal(metaMaviance.alternates.canonical, "https://marcsitze.dev/fr/portfolio/maviance-payment-portal");
   assert.ok(metaMaviance.title.includes("Maviance"));
 });
+
+test("Google Analytics - Configuration & Event Helpers", async () => {
+  const { trackEvent, AnalyticsEvents } = await import("../src/lib/analytics.ts");
+
+  assert.equal(typeof trackEvent, "function", "trackEvent must be a function");
+  assert.equal(typeof AnalyticsEvents.inquirySubmitted, "function");
+  assert.equal(typeof AnalyticsEvents.whatsappClicked, "function");
+  assert.equal(typeof AnalyticsEvents.emailCopied, "function");
+  assert.equal(typeof AnalyticsEvents.resumeDownloaded, "function");
+  assert.equal(typeof AnalyticsEvents.caseStudyViewed, "function");
+
+  // Verify safe execution without throwing errors in SSR / headless environment
+  assert.doesNotThrow(() => {
+    trackEvent("test_event", { key: "value" });
+    AnalyticsEvents.inquirySubmitted("ai-webapp", "$3k-$10k");
+    AnalyticsEvents.whatsappClicked("contact_section");
+    AnalyticsEvents.emailCopied();
+    AnalyticsEvents.resumeDownloaded();
+    AnalyticsEvents.caseStudyViewed("bubo-ai");
+  }, "Analytics tracking should safely no-op without crashing when window or GA_ID is absent");
+});

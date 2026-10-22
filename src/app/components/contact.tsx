@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { getDictionary, LocaleType } from "../dictionaries";
 import InquiryModal from "./inquiryModal";
+import { AnalyticsEvents } from "@/lib/analytics";
 
 export default function Contact({
   dictionary,
@@ -29,6 +30,7 @@ export default function Contact({
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = () => {
+    AnalyticsEvents.emailCopied();
     if (typeof navigator !== "undefined" && navigator.clipboard) {
       navigator.clipboard.writeText("marcsitze01@gmail.com");
       setCopied(true);
@@ -120,6 +122,7 @@ export default function Contact({
                 href={whatsappDirectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => AnalyticsEvents.whatsappClicked("contact_section")}
                 className="p-4 rounded-2xl border border-white/10 hover:border-emerald-500/40 bg-white/5 hover:bg-emerald-500/5 transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center gap-3">

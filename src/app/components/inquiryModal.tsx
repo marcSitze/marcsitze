@@ -17,6 +17,7 @@ import {
   Globe2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AnalyticsEvents } from "@/lib/analytics";
 
 interface InquiryState {
   projectType: "ai-webapp" | "fintech-portal" | "mobile-app" | "frontend-lead" | "code-audit";
@@ -65,6 +66,7 @@ export default function InquiryModal({
   }, [isOpen, onClose]);
 
   const handleCopyEmail = () => {
+    AnalyticsEvents.emailCopied();
     if (typeof navigator !== "undefined" && navigator.clipboard) {
       navigator.clipboard.writeText("marcsitze01@gmail.com");
       setCopied(true);
@@ -290,7 +292,15 @@ ${inquiry.clientName || ""}`;
               asChild
               className="flex-1 rounded-full gap-2 py-6 bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-lg shadow-emerald-600/20"
             >
-              <a href={buildWhatsAppUrl()} target="_blank" rel="noopener noreferrer">
+              <a
+                href={buildWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  AnalyticsEvents.whatsappClicked("inquiry_modal");
+                  AnalyticsEvents.inquirySubmitted(inquiry.projectType, inquiry.budgetRange);
+                }}
+              >
                 <MessageSquare className="w-4 h-4" />
                 <span>Send Scope on WhatsApp</span>
                 <ArrowRight className="w-4 h-4" />
@@ -302,7 +312,12 @@ ${inquiry.clientName || ""}`;
               variant="outline"
               className="rounded-full gap-2 py-6 font-semibold border-border/80"
             >
-              <a href={buildMailtoUrl()}>
+              <a
+                href={buildMailtoUrl()}
+                onClick={() => {
+                  AnalyticsEvents.inquirySubmitted(inquiry.projectType, inquiry.budgetRange);
+                }}
+              >
                 <span>Send via Email</span>
               </a>
             </Button>
