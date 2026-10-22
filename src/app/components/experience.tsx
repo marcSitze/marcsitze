@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { CERTIFICATES, RESUME } from "@/data/resume";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import dayjs from "dayjs";
@@ -88,9 +89,11 @@ export default function Experience({
                     <div className="flex items-center gap-3.5">
                       {exp.logo ? (
                         <div className="w-12 h-12 rounded-2xl overflow-hidden border border-white/10 bg-black/20 shrink-0 p-1 flex items-center justify-center">
-                          <img
+                          <Image
                             src={exp.logo}
-                            alt={exp.place}
+                            alt={`${exp.place} company logo`}
+                            width={48}
+                            height={48}
                             className="w-full h-full object-contain"
                           />
                         </div>

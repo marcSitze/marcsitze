@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import {
   BuboLogo,
   MavianceLogo,
@@ -27,7 +28,7 @@ const partners: Partner[] = [
   { name: "HackerRank", logo: HackerRankLogo, label: "Verified React Professional" },
 ];
 
-export default function ClientMarquee(_props?: { isDark?: boolean }) {
+export default function ClientMarquee({ isDark: _isDark }: { isDark?: boolean } = {}) {
   // Duplicate array for seamless infinite looping
   const marqueeList = [...partners, ...partners];
 
@@ -51,9 +52,11 @@ export default function ClientMarquee(_props?: { isDark?: boolean }) {
               className="flex items-center gap-3 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10 border border-white/5 hover:border-primary/20 transition-all duration-300 group/item cursor-default"
             >
               <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-white/10 bg-black/20 flex items-center justify-center">
-                <img
+                <Image
                   src={partner.logo}
                   alt={`${partner.name} logo`}
+                  width={32}
+                  height={32}
                   className="w-full h-full object-cover grayscale group-hover/item:grayscale-0 transition-all duration-300"
                 />
               </div>

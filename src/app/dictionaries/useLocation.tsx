@@ -10,7 +10,7 @@ const useLocation = () => {
     if (typeof window !== 'undefined') {
       setCurrentPath(pathname);
     }
-  }, []);
+  }, [pathname]);
 
 
   const isFrench = currentPath.startsWith("/fr");

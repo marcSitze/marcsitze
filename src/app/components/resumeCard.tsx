@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import dayjs from "dayjs";
 import { IResume } from "../../types";
@@ -10,8 +11,9 @@ const ResumeCard = ({ data, isDark }: { data: IResume; isDark: boolean }) => {
   const elRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const el = elRef.current;
     return () => {
-      if (elRef.current) gsap.killTweensOf(elRef.current);
+      if (el) gsap.killTweensOf(el);
     };
   }, []);
 
@@ -47,10 +49,12 @@ const ResumeCard = ({ data, isDark }: { data: IResume; isDark: boolean }) => {
       <div className="grid grid-cols-12 gap-4">
         {data?.logo && (
           <div className="col-span-3 sm:col-span-1">
-            <img
-              className="w-full"
+            <Image
+              className="w-full h-auto object-contain"
               src={data?.logo}
-              alt={data?.title}
+              alt={data?.title || "Organization logo"}
+              width={44}
+              height={44}
             />
           </div>
         )}

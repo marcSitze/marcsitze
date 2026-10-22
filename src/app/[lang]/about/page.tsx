@@ -1,14 +1,10 @@
-"use client";
-
-import { use, useEffect, useState } from "react";
+import Image from "next/image";
 import { getDictionary, LocaleType } from "../../dictionaries";
 import { USER } from "@/data/resume";
 import { MarcSitze } from "@/assets";
 import Reveal from "@/components/reveal";
 import {
   Quote,
-  Heart,
-  Lightbulb,
   Sparkles,
   Code,
   GraduationCap,
@@ -22,28 +18,70 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-export default function AboutPage({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: LocaleType }>;
 }) {
-  const { lang } = use(params);
-  const [dictionary, setDictionary] = useState<Awaited<
-    ReturnType<typeof getDictionary>
-  > | null>(null);
+  const { lang } = await params;
+  const isFr = lang === "fr";
+  const baseUrl = "https://marcsitze.dev";
 
-  useEffect(() => {
-    getDictionary(lang).then(setDictionary);
-  }, [lang]);
+  return {
+    title: isFr
+      ? "À Propos - Développeur Frontend Lead"
+      : "About Me - Senior Frontend Lead & Full-Stack",
+    description: isFr
+      ? "Découvrez le parcours, l'expertise technique et la vision de Marc Sitze, Senior Frontend Lead & Full-Stack Engineer spécialisé en Next.js, IA et Fintech."
+      : "Discover the journey, engineering philosophies, and technical expertise of Marc Sitze, Senior Frontend Lead & Full-Stack Engineer specializing in Next.js, AI, and Fintech.",
+    alternates: {
+      canonical: `${baseUrl}/${lang}/about`,
+      languages: {
+        en: `${baseUrl}/en/about`,
+        fr: `${baseUrl}/fr/about`,
+        "x-default": `${baseUrl}/en/about`,
+      },
+    },
+    openGraph: {
+      title: isFr
+        ? "À Propos | Marc Sitze - Développeur Frontend Lead"
+        : "About Me | Marc Sitze - Senior Frontend Lead",
+      description: isFr
+        ? "Parcours, passions et réalisations techniques de Marc Sitze."
+        : "Career roadmap, passions, and engineering achievements of Marc Sitze.",
+      url: `${baseUrl}/${lang}/about`,
+      siteName: "Marc Sitze Portfolio",
+      images: [
+        {
+          url: `${baseUrl}/marcsitze.png`,
+          width: 1200,
+          height: 630,
+          alt: "Marc Sitze - Senior Frontend Lead",
+        },
+      ],
+      locale: isFr ? "fr_FR" : "en_US",
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: isFr
+        ? "À Propos | Marc Sitze"
+        : "About Marc Sitze",
+      description: isFr
+        ? "Senior Frontend Lead & Full-Stack Engineer spécialisé en React & Next.js."
+        : "Senior Frontend Lead & Full-Stack Engineer specializing in React & Next.js.",
+      images: [`${baseUrl}/marcsitze.png`],
+    },
+  };
+}
 
-  if (!dictionary) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ lang: LocaleType }>;
+}) {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
   const about = dictionary.about;
 
   // Dynamic icons mapping for Passions
@@ -92,11 +130,14 @@ export default function AboutPage({
               {/* Spinning gradient ring background on hover */}
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-indigo-600 opacity-60 blur-sm group-hover:opacity-100 group-hover:blur-md transition duration-500 group-hover:scale-105" />
 
-              {/* Main image container */}
+              {/* Main image container with Next.js Image */}
               <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-card">
-                <img
+                <Image
                   src={MarcSitze}
-                  alt={USER.name}
+                  alt={`${USER.name} - Senior Frontend Lead & Full-Stack Engineer`}
+                  width={320}
+                  height={320}
+                  priority
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
@@ -147,9 +188,6 @@ export default function AboutPage({
           {/* Passions Section */}
           <Reveal className="space-y-6">
             <div className="flex items-center gap-3">
-              {/* <div className="p-3 bg-red-500/10 rounded-xl">
-                <Heart className="w-6 h-6 text-red-500 animate-pulse" />
-              </div> */}
               <h2 className="text-3xl font-bold tracking-tight">
                 {about.passionsTitle}
               </h2>
@@ -190,9 +228,6 @@ export default function AboutPage({
           {/* Try This Year Section */}
           <Reveal className="space-y-6">
             <div className="flex items-center gap-3">
-              {/* <div className="p-3 bg-yellow-500/10 rounded-xl">
-                <Lightbulb className="w-6 h-6 text-yellow-500 animate-bounce duration-3000" />
-              </div> */}
               <h2 className="text-3xl font-bold tracking-tight">
                 {about.tryThisYearTitle}
               </h2>
@@ -254,7 +289,6 @@ export default function AboutPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {about.quotesContent.map((quote: string, index: number) => {
-              // Extract author if exists
               const quoteParts = quote.split(" - ");
               const quoteText = quoteParts[0];
               const authorText = quoteParts[1];
@@ -264,10 +298,7 @@ export default function AboutPage({
                   key={index}
                   className="relative p-8 rounded-2xl border border-border/50 bg-card/35 backdrop-blur-sm overflow-hidden group shadow-sm transition duration-300 hover:border-primary/20"
                 >
-                  {/* Visual accent left line */}
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-blue-500 rounded-l-2xl" />
-
-                  {/* Decorative background quote mark */}
                   <Quote className="absolute right-4 bottom-4 w-28 h-28 text-primary/5 pointer-events-none select-none transition-transform duration-500 group-hover:scale-110" />
 
                   <blockquote className="relative z-10 flex flex-col justify-between h-full">

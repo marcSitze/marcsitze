@@ -22,9 +22,12 @@ export async function generateMetadata({
   const isFr = lang === "fr";
   return {
     metadataBase: new URL("https://marcsitze.dev"),
-    title: isFr
-      ? "Marc Sitze | Développeur Frontend Lead & Full-Stack (Next.js, IA, Fintech)"
-      : "Marc Sitze | Senior Frontend Lead & Full-Stack Engineer (Next.js, AI, Fintech)",
+    title: {
+      default: isFr
+        ? "Marc Sitze | Développeur Frontend Lead & Full-Stack (Next.js, IA, Fintech)"
+        : "Marc Sitze | Senior Frontend Lead & Full-Stack Engineer (Next.js, AI, Fintech)",
+      template: "%s | Marc Sitze",
+    },
     description: isFr
       ? "Développeur Senior & Lead Frontend spécialisé en React, Next.js 15, applications IA en temps réel et passerelles de paiement fintech performantes."
       : "Senior Frontend Lead & Full-Stack Engineer specializing in React, Next.js 15, real-time AI web apps, and high-concurrency fintech platforms.",
@@ -104,6 +107,25 @@ export default async function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://marcsitze.dev/#website",
+        name: "Marc Sitze - Senior Frontend Lead & Full-Stack Engineer",
+        url: "https://marcsitze.dev",
+        inLanguage: ["en", "fr"],
+        publisher: {
+          "@id": "https://marcsitze.dev/#person",
+        },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `https://marcsitze.dev/${lang}/#profilepage`,
+        url: `https://marcsitze.dev/${lang}`,
+        name: isFr ? "Profil de Marc Sitze" : "Marc Sitze Profile",
+        mainEntity: {
+          "@id": "https://marcsitze.dev/#person",
+        },
+      },
       {
         "@type": "Person",
         "@id": "https://marcsitze.dev/#person",

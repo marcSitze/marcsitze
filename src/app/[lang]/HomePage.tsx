@@ -43,7 +43,7 @@ export default function HomePage({
   };
 
   return (
-    <main className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
       {/* Ambient background glows */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-sky-500/10 via-indigo-500/5 to-transparent blur-3xl opacity-60 dark:opacity-40" />
@@ -94,6 +94,6 @@ export default function HomePage({
         onClose={() => setIsInquiryOpen(false)}
         initialService={inquiryService}
       />
-    </main>
+    </div>
   );
 }

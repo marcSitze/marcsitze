@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { MarcSitze } from "@/assets";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,9 +64,11 @@ export default function Contact({
           {/* Left Column: Portrait & Availability */}
           <div className="md:col-span-5 flex flex-col items-center text-center">
             <div className="relative group w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden border-2 border-primary/20 shadow-xl mb-6">
-              <img
+              <Image
                 src={MarcSitze}
-                alt="Marc Sitze - Senior Frontend Lead"
+                alt="Marc Sitze - Senior Frontend Lead & Full-Stack Engineer"
+                width={240}
+                height={240}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4 justify-center">

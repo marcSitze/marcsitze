@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -160,9 +162,11 @@ export default function Portfolio({
                   <div className="relative z-10 flex flex-col h-full">
                     {/* Thumbnail banner with gradient mask */}
                     <div className="relative h-56 w-full overflow-hidden bg-zinc-900">
-                      <img
+                      <Image
                         src={work.imageLink[0] || work.thumbnail}
-                        alt={work.title}
+                        alt={`${work.title} - ${work.category} Case Study Preview`}
+                        width={600}
+                        height={350}
                         className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
@@ -228,10 +232,19 @@ export default function Portfolio({
 
                         {/* Footer action trigger */}
                         <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                          <span className="text-xs font-semibold text-primary inline-flex items-center gap-1 group-hover:underline">
+                          <Link
+                            href={`/${lang || "en"}/portfolio/${work.slug}`}
+                            onClick={(e) => {
+                              if (!e.metaKey && !e.ctrlKey && !e.shiftKey) {
+                                e.preventDefault();
+                                openModal(work);
+                              }
+                            }}
+                            className="text-xs font-semibold text-primary inline-flex items-center gap-1 hover:underline"
+                          >
                             {dictionary.portfolio.viewCaseStudy || "Inspect Architecture"}
                             <span className="transition-transform group-hover:translate-x-1">→</span>
-                          </span>
+                          </Link>
 
                           <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                             {work.liveUrl && (
@@ -449,9 +462,11 @@ export default function Portfolio({
                 {activeModalTab === "gallery" && (
                   <div className="flex flex-col items-center gap-4">
                     <div className="relative w-full h-[45vh] bg-black/40 rounded-2xl overflow-hidden flex items-center justify-center">
-                      <img
+                      <Image
                         src={selectedCaseStudy.imageLink[currentGalleryIndex] || selectedCaseStudy.thumbnail}
-                        alt="Case study screenshot"
+                        alt={`${selectedCaseStudy.title} screenshot ${currentGalleryIndex + 1}`}
+                        width={900}
+                        height={500}
                         className="max-h-full max-w-full object-contain"
                       />
 
@@ -495,7 +510,13 @@ export default function Portfolio({
                               : "border-transparent opacity-50 hover:opacity-80"
                           }`}
                         >
-                          <img src={img} alt="" className="h-full w-full object-cover" />
+                          <Image
+                            src={img}
+                            alt={`${selectedCaseStudy.title} preview ${idx + 1}`}
+                            width={80}
+                            height={56}
+                            className="h-full w-full object-cover"
+                          />
                         </button>
                       ))}
                     </div>
@@ -504,24 +525,30 @@ export default function Portfolio({
               </div>
 
               {/* Modal Footer */}
-              <div className="p-4 sm:p-6 border-t border-border/50 bg-card/40 flex items-center justify-between">
+              <div className="p-4 sm:p-6 border-t border-border/50 bg-card/40 flex flex-wrap items-center justify-between gap-4">
                 <span className="text-xs text-muted-foreground">
                   Available for contracts & full-stack development
                 </span>
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-2">
+                  <Button asChild variant="outline" size="sm" className="rounded-full gap-2">
+                    <Link href={`/${lang || "en"}/portfolio/${selectedCaseStudy.slug}`}>
+                      <span>Full Case Study Page</span>
+                      <ExternalLink size={14} />
+                    </Link>
+                  </Button>
                   {selectedCaseStudy.liveUrl && (
                     <Button asChild size="sm" className="rounded-full gap-2">
                       <a href={selectedCaseStudy.liveUrl} target="_blank" rel="noopener noreferrer">
-                        <span>Visit Live Platform</span>
+                        <span>Visit Live</span>
                         <ExternalLink size={14} />
                       </a>
                     </Button>
                   )}
                   {selectedCaseStudy.githubUrl && (
-                    <Button asChild variant="outline" size="sm" className="rounded-full gap-2">
+                    <Button asChild variant="ghost" size="sm" className="rounded-full gap-2">
                       <a href={selectedCaseStudy.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Github size={14} />
-                        <span>Repository</span>
+                        <span>Code</span>
                       </a>
                     </Button>
                   )}

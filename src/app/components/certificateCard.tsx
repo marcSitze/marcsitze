@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import dayjs from "dayjs";
 import gsap from "gsap";
 import { ICertificate } from "../../types";
@@ -15,8 +16,9 @@ const CertificateCard = ({
   const elRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const el = elRef.current;
     return () => {
-      if (elRef.current) gsap.killTweensOf(elRef.current);
+      if (el) gsap.killTweensOf(el);
     };
   }, []);
 
@@ -45,11 +47,12 @@ const CertificateCard = ({
     >
       <div className="flex">
         {data?.logo && (
-          <img
+          <Image
             src={data?.logo}
-            className="mr-4"
-            alt={data?.title}
-            width={100}
+            className="mr-4 object-contain"
+            alt={data?.title || "Certificate issuer"}
+            width={64}
+            height={48}
           />
         )}
         <div className={`font-semibold`}>
