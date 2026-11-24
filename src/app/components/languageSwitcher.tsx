@@ -1,9 +1,14 @@
 "use client";
-import { usePathname } from "next/navigation";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { i18n, type Locale } from "@/i18n-config";
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({
+  tone = "light",
+}: {
+  tone?: "light" | "dark";
+}) {
   const pathname = usePathname();
   const currentLocale = pathname?.split("/")[1] || i18n.defaultLocale;
 
@@ -14,22 +19,28 @@ export default function LanguageSwitcher() {
     return segments.join("/");
   };
 
+  const activeClass = tone === "dark" ? "text-[#1c1d20]" : "text-white";
+  const inactiveClass =
+    tone === "dark"
+      ? "text-[#6b6e72] hover:text-[#1c1d20]"
+      : "text-[#999d9e] hover:text-white";
+
   return (
-    <div className="flex items-center rounded-full bg-white/5 dark:bg-white/10 p-0.5 border border-white/10">
-      {i18n.locales.map((locale) => {
+    <div className="flex items-center gap-2 text-[12px] leading-none tracking-[0.05em]">
+      {i18n.locales.map((locale, idx) => {
         const isActive = currentLocale === locale;
         return (
-          <Link
-            key={locale}
-            href={redirectedPathname(locale)}
-            className={`px-2 py-0.5 text-xs font-semibold rounded-full uppercase transition-all duration-200 ${
-              isActive
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {locale}
-          </Link>
+          <span key={locale} className="inline-flex items-center gap-2">
+            <Link
+              href={redirectedPathname(locale)}
+              className={`uppercase transition-colors duration-200 ${
+                isActive ? activeClass : inactiveClass
+              }`}
+            >
+              {locale}
+            </Link>
+            {idx === 0 && <span className="text-[#999d9e]/60">/</span>}
+          </span>
         );
       })}
     </div>

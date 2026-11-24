@@ -1,9 +1,7 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+import React, { useRef } from "react";
+import { gsap, useGSAP, MOTION_SAFE_QUERY } from "@/lib/gsap";
 
 type RevealProps = {
   children: React.ReactNode;
@@ -18,61 +16,41 @@ export default function Reveal({
   children,
   className = "",
   stagger = 0.08,
-  y = 40,
-  duration = 0.8,
+  y = 36,
+  duration = 0.85,
   useContents = false,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  useGSAP(
+    () => {
+      const el = ref.current;
+      if (!el) return;
 
-    const targets = Array.from(el.children) as Element[];
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_SAFE_QUERY, () => {
+        const targets = Array.from(el.children) as Element[];
+        const animTarget = targets.length > 1 ? targets : el;
 
-    // If there's more than one direct child, stagger them. Otherwise animate the container itself.
-    if (targets.length > 1) {
-      gsap.fromTo(
-        targets,
-        { y, opacity: 0, autoAlpha: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          autoAlpha: 1,
+        gsap.from(animTarget, {
+          y,
+          autoAlpha: 0,
           duration,
-          stagger,
+          stagger: targets.length > 1 ? stagger : 0,
           ease: "power3.out",
+          clearProps: "transform",
           scrollTrigger: {
             trigger: el,
-            start: "top 85%",
+            start: "top 88%",
             toggleActions: "play none none reverse",
           },
-        }
-      );
-    } else {
-      gsap.fromTo(
-        el,
-        { y, opacity: 0, autoAlpha: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          autoAlpha: 1,
-          duration,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
+        });
+      });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      gsap.killTweensOf(targets.length > 1 ? targets : el);
-    };
-  }, [stagger, y, duration]);
+      return () => mm.revert();
+    },
+    { scope: ref, dependencies: [stagger, y, duration] }
+  );
 
   return (
     <div

@@ -159,7 +159,7 @@ export const USER: IUser = {
   name: "Marc Sitze",
   title: "Senior Frontend Lead & Full-Stack Engineer",
   description:
-    "Engineering high-performance AI web applications, resilient fintech payment portals, and scalable SaaS products. Over 4 years of technical leadership across distributed teams in Europe, North America, and Africa.",
+    "Engineering high-performance AI web applications, resilient fintech payment portals, and scalable SaaS products. Over 5 years of technical leadership across distributed teams in Europe, North America, and Africa.",
   cvLink: "/marc-sitze-cv-senior.pdf",
 };
 

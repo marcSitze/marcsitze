@@ -1,18 +1,19 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import Contact from "../components/contact";
 import Experience from "../components/experience";
 import Footer from "../components/footer";
 import Hero from "../components/hero";
+import EditorialManifesto from "../components/editorialManifesto";
 import ClientMarquee from "../components/clientMarquee";
 import ServicesBento from "../components/servicesBento";
 import TechStack from "../components/tech-stack";
 import Portfolio from "../components/portfolio";
 import InquiryModal from "../components/inquiryModal";
+import EditorialPreloader from "../components/editorialPreloader";
 import { getDictionary, LocaleType } from "../dictionaries";
-import Reveal from "@/components/reveal";
+import { gsap, useGSAP, MOTION_SAFE_QUERY } from "@/lib/gsap";
 
 export default function HomePage({
   dictionary,
@@ -21,16 +22,38 @@ export default function HomePage({
   lang: LocaleType;
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
 }) {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [inquiryService, setInquiryService] = useState<string | undefined>(undefined);
+  const pageRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useGSAP(
+    () => {
+      const container = pageRef.current;
+      if (!container) return;
 
-  const isDark = mounted ? resolvedTheme === "dark" : true;
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_SAFE_QUERY, () => {
+        // Ultra-minimal 1px top scroll indicator in Bone White / Electric Iris
+        gsap.fromTo(
+          "[data-scroll-rail]",
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: container,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 0.2,
+            },
+          }
+        );
+      });
+
+      return () => mm.revert();
+    },
+    { scope: pageRef }
+  );
 
   const handleSelectService = (serviceId: string) => {
     setInquiryService(serviceId);
@@ -43,50 +66,59 @@ export default function HomePage({
   };
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
-      {/* Ambient background glows */}
-      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-sky-500/10 via-indigo-500/5 to-transparent blur-3xl opacity-60 dark:opacity-40" />
-        <div className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-[20%] left-[-10%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-3xl" />
+    <div
+      ref={pageRef}
+      className="relative min-h-screen w-full bg-white text-[#1c1d20] overflow-x-clip selection:bg-primary selection:text-primary-foreground"
+    >
+      {/* Editorial Opening Curtain */}
+      <EditorialPreloader />
+
+      {/* Minimal 1px Scroll Progress Indicator */}
+      <div
+        aria-hidden="true"
+        className="fixed top-0 left-0 right-0 h-[2px] z-50 pointer-events-none"
+      >
+        <div
+          data-scroll-rail
+          className="h-full w-full origin-left scale-x-0 bg-primary"
+        />
       </div>
 
-      {/* Hero Section */}
+      {/* 01. Full-Bleed Dennis Snellenberg Hero */}
       <Hero
-        isDark={isDark}
+        isDark={false}
         lang={lang}
         dictionary={dictionary}
         onOpenInquiry={handleOpenGeneralInquiry}
       />
 
-      {/* Social Proof Marquee */}
-      <ClientMarquee />
+      {/* 02. Editorial Manifesto & Parallax Primary Orb */}
+      <EditorialManifesto
+        dictionary={dictionary}
+        lang={lang}
+        onOpenInquiry={handleOpenGeneralInquiry}
+      />
 
-      {/* Flagship Case Studies Showcase */}
+      {/* 03. Selected Work — Interactive Editorial List + Cursor Preview */}
       <Portfolio dictionary={dictionary} showSeeAll={true} lang={lang} />
 
-      {/* Interactive Services Bento Grid */}
-      <Reveal className="mb-16 px-4">
-        <ServicesBento onSelectService={handleSelectService} isDark={isDark} />
-      </Reveal>
+      {/* 04. Services — Light Editorial Grid + Single Primary Accent */}
+      <ServicesBento onSelectService={handleSelectService} isDark={false} />
 
-      {/* Career Journey & Experience Section */}
-      <Reveal className="mb-16 px-4">
-        <Experience isDark={isDark} dictionary={dictionary} />
-      </Reveal>
+      {/* 05. Horizontal Partner & Proof Strip */}
+      <ClientMarquee />
 
-      {/* Technical Stack Section */}
-      <Reveal className="mb-16 px-4">
-        <TechStack dictionary={dictionary} />
-      </Reveal>
+      {/* 06. Career Timeline & Certifications */}
+      <Experience isDark={false} dictionary={dictionary} />
 
-      {/* Conversion & Contact Section */}
-      <Reveal className="mb-16 px-4">
-        <Contact isDark={isDark} dictionary={dictionary} />
-      </Reveal>
+      {/* 07. Technical Stack */}
+      <TechStack dictionary={dictionary} />
 
-      {/* Footer */}
-      <Footer isDark={isDark} dictionary={dictionary} />
+      {/* 08. Dark Editorial Contact & Footer Finale */}
+      <Contact isDark={true} dictionary={dictionary} />
+
+      {/* 09. Editorial Dark Footer */}
+      <Footer isDark={true} dictionary={dictionary} />
 
       {/* Global Project Inquiry Modal */}
       <InquiryModal

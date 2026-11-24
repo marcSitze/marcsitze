@@ -1,23 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { MarcSitze } from "@/assets";
-import { Button } from "@/components/ui/button";
-import {
-  Mail,
-  MapPin,
-  Clock,
-  Sparkles,
-  MessageSquare,
-  Copy,
-  Check,
-  ExternalLink,
-  Globe2,
-} from "lucide-react";
+import { MarcAbout } from "@/assets";
+import { Check, Copy } from "lucide-react";
 import { getDictionary, LocaleType } from "../dictionaries";
 import InquiryModal from "./inquiryModal";
 import { AnalyticsEvents } from "@/lib/analytics";
+import { gsap, useGSAP, attachMagnetic, MOTION_SAFE_QUERY } from "@/lib/gsap";
 
 export default function Contact({
   dictionary,
@@ -26,6 +16,7 @@ export default function Contact({
   lang?: LocaleType;
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
 }) {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -44,147 +35,207 @@ export default function Contact({
       "Hi Marc! I visited your portfolio and would like to discuss a freelance project."
     );
 
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_SAFE_QUERY, () => {
+        // Masked 88px editorial headline lines
+        gsap.from("[data-contact-line]", {
+          yPercent: 110,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.12,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 82%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        // Iconic Dennis Snellenberg horizontal scrubbed parallax on Electric Iris orb across divider
+        gsap.fromTo(
+          "[data-contact-orb]",
+          { x: -70 },
+          {
+            x: 36,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "[data-contact-divider-wrap]",
+              start: "top 95%",
+              end: "bottom 35%",
+              scrub: 0.7,
+            },
+          }
+        );
+
+        // Arrow rotation scrubbed with scroll
+        gsap.fromTo(
+          "[data-contact-arrow]",
+          { rotation: -20 },
+          {
+            rotation: 15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.8,
+            },
+          }
+        );
+
+        // Staggered pill links
+        gsap.from("[data-contact-pill]", {
+          y: 24,
+          autoAlpha: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power3.out",
+          clearProps: "transform",
+          scrollTrigger: {
+            trigger: "[data-contact-pills]",
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        const magnetics = section.querySelectorAll<HTMLElement>("[data-magnetic]");
+        const cleanup = attachMagnetic(magnetics, 0.3);
+        return () => cleanup();
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef }
+  );
+
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 max-w-5xl">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Initiate Collaboration</span>
-          </div> */}
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
-            {dictionary.getinTouch.title}
-          </h2>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            {dictionary.getinTouch.tagLine}
-          </p>
-        </div>
-
-        {/* Main Conversion Terminal Card */}
-        <div className="rounded-3xl border border-black/10 dark:border-white/10 bg-card/80 dark:bg-zinc-950/80 backdrop-blur-xl shadow-2xl p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          {/* Left Column: Portrait & Availability */}
-          <div className="md:col-span-5 flex flex-col items-center text-center">
-            <div className="relative group w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden border-2 border-primary/20 shadow-xl mb-6">
+    <section
+      ref={sectionRef}
+      id="contact"
+      className="relative w-full bg-[#1c1d20] px-6 sm:px-14 lg:px-24 pt-[120px] sm:pt-[160px] pb-[70px] border-t border-white/15"
+    >
+      {/* Top Massive Editorial Headline with Inline Portrait (Dennis Snellenberg Footer Pattern) */}
+      <div className="flex items-end justify-between gap-8">
+        <div className="text-left">
+          <div className="flex items-center gap-4 sm:gap-6 overflow-hidden">
+            <div
+              data-contact-line
+              className="relative w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden shrink-0 bg-[#494a4d]"
+            >
               <Image
-                src={MarcSitze}
-                alt="Marc Sitze - Senior Frontend Lead & Full-Stack Engineer"
-                width={240}
-                height={240}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                src={MarcAbout}
+                alt="Marc Sitze"
+                fill
+                sizes="80px"
+                className="object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4 justify-center">
-                <span className="text-xs font-bold text-white tracking-wide">
-                  Marc Sitze
-                </span>
-              </div>
             </div>
+            <h2
+              data-contact-line
+              className="text-[clamp(40px,7vw,88px)] leading-[1.06] tracking-[0.05em] text-white"
+            >
+              {dictionary.getinTouch.title}
+            </h2>
+          </div>
 
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span>Open for Select Q2/Q3 Missions</span>
-            </div>
-
-            <p className="text-xs text-muted-foreground max-w-xs">
-              Direct remote contracts, technical advisory, and fractional frontend leadership.
+          <div className="overflow-hidden mt-1">
+            <p
+              data-contact-line
+              className="text-[clamp(40px,7vw,88px)] leading-[1.06] tracking-[0.05em] text-white"
+            >
+              Let&apos;s work together
             </p>
           </div>
-
-          {/* Right Column: Interactive Triggers & Channels */}
-          <div className="md:col-span-7 space-y-6">
-            {/* Primary Action Button: Launch Estimator */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border border-primary/30 space-y-3">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-primary">
-                Fast-Track Inquiries
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-                Estimate Your Project Scope
-              </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground">
-                Specify your technical requirements, target budget, and timeline in 60 seconds.
-              </p>
-              <Button
-                onClick={() => setIsInquiryOpen(true)}
-                className="w-full sm:w-auto rounded-full px-6 py-5 gap-2 font-bold shadow-md shadow-primary/20 hover:scale-105 transition-transform"
-              >
-                {/* <Sparkles size={16} /> */}
-                <span>Launch Project Scope Estimator</span>
-              </Button>
-            </div>
-
-            {/* Direct Channels Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {/* WhatsApp Direct */}
-              <a
-                href={whatsappDirectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => AnalyticsEvents.whatsappClicked("contact_section")}
-                className="p-4 rounded-2xl border border-white/10 hover:border-emerald-500/40 bg-white/5 hover:bg-emerald-500/5 transition-all flex items-center justify-between group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
-                    <MessageSquare size={18} />
-                  </div>
-                  <div>
-                    <span className="block text-xs text-muted-foreground font-semibold">
-                      WhatsApp Direct
-                    </span>
-                    <span className="text-sm font-bold text-foreground group-hover:text-emerald-400 transition-colors">
-                      +237 699576276
-                    </span>
-                  </div>
-                </div>
-                <ExternalLink size={14} className="text-muted-foreground group-hover:text-emerald-400" />
-              </a>
-
-              {/* Email Direct with Copy */}
-              <button
-                type="button"
-                onClick={handleCopyEmail}
-                className="p-4 rounded-2xl border border-white/10 hover:border-primary/40 bg-white/5 hover:bg-primary/5 transition-all flex items-center justify-between group text-left"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
-                    <Mail size={18} />
-                  </div>
-                  <div>
-                    <span className="block text-xs text-muted-foreground font-semibold">
-                      Direct Email
-                    </span>
-                    <span className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
-                      marcsitze01@gmail.com
-                    </span>
-                  </div>
-                </div>
-                {copied ? (
-                  <Check size={16} className="text-emerald-400" />
-                ) : (
-                  <Copy size={16} className="text-muted-foreground group-hover:text-primary" />
-                )}
-              </button>
-            </div>
-
-            {/* Location & Timezone info */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white/5 dark:bg-white/5 border border-white/5 text-xs text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <MapPin size={16} className="text-primary shrink-0" />
-                <span>Douala, Cameroon</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Globe2 size={16} className="text-indigo-400 shrink-0" />
-                <span>UTC+1 • Full CET & EST Overlap</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock size={16} className="text-emerald-400 shrink-0" />
-                <span>Mon — Sun: 8:00 AM — 6:00 PM</span>
-              </div>
-            </div>
-          </div>
         </div>
+
+        {/* Thin 1px directional arrow */}
+        <svg
+          data-contact-arrow
+          width="22"
+          height="22"
+          viewBox="0 0 18 18"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="1"
+          aria-hidden="true"
+          className="hidden sm:block mb-4 shrink-0 will-change-transform"
+        >
+          <path d="M16 2L2 16" />
+          <path d="M2 5V16H13" />
+        </svg>
+      </div>
+
+      {/* Hairline Divider + Scrubbed Horizontal Parallax Electric Iris Button */}
+      <div
+        data-contact-divider-wrap
+        className="relative my-16 sm:my-24 flex items-center"
+      >
+        <div className="h-px w-full bg-white/15" />
+
+        <div
+          data-contact-orb
+          className="absolute right-6 sm:right-20 lg:right-32 top-1/2 -translate-y-1/2 z-10 will-change-transform"
+        >
+          <button
+            type="button"
+            data-magnetic
+            onClick={() => setIsInquiryOpen(true)}
+            className="w-[144px] h-[144px] sm:w-[176px] sm:h-[176px] rounded-full bg-primary hover:bg-[var(--primary-deep)] text-white text-[14px] tracking-[0.05em] flex items-center justify-center text-center px-4 transition-colors duration-300 cursor-pointer"
+          >
+            <span data-magnetic-text>Get in touch</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Inset-Border Pill Links Row */}
+      <div
+        data-contact-pills
+        className="pt-8 sm:pt-4 flex flex-wrap items-center gap-4 text-left"
+      >
+        <button
+          type="button"
+          data-contact-pill
+          data-magnetic
+          onClick={handleCopyEmail}
+          className="ds-pill ds-pill-dark inline-flex items-center gap-3 cursor-pointer"
+        >
+          <span data-magnetic-text>marcsitze01@gmail.com</span>
+          {copied ? <Check size={14} /> : <Copy size={14} className="text-[#999d9e]" />}
+        </button>
+
+        <a
+          data-contact-pill
+          data-magnetic
+          href={whatsappDirectUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => AnalyticsEvents.whatsappClicked("contact_section")}
+          className="ds-pill ds-pill-dark inline-flex items-center gap-3"
+        >
+          <span data-magnetic-text>+237 699 57 62 76</span>
+        </a>
+
+        <button
+          type="button"
+          data-contact-pill
+          data-magnetic
+          onClick={() => setIsInquiryOpen(true)}
+          className="ds-pill ds-pill-dark inline-flex items-center gap-3 cursor-pointer"
+        >
+          <span data-magnetic-text>Estimate Your Project Scope</span>
+        </button>
+      </div>
+
+      {/* Quiet Metadata Caption */}
+      <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-2 text-[12px] text-[#999d9e] text-left">
+        <span>Douala, Cameroon</span>
+        <span>UTC+1 • Full CET & EST Overlap</span>
+        <span>{dictionary.getinTouch.tagLine}</span>
       </div>
 
       {/* Interactive Scope Estimator Modal */}

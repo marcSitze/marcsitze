@@ -1,8 +1,6 @@
 import { Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { i18n } from "@/i18n-config";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
 import { LocaleType, getDictionary } from "../dictionaries";
 import "../globals.css";
 import { Analytics } from "@vercel/analytics/next";
@@ -84,8 +82,6 @@ export async function generateMetadata({
     },
   };
 }
-
-gsap.registerPlugin(ScrollTrigger);
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale: LocaleType) => ({ lang: locale }));
@@ -221,7 +217,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang={lang}>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -230,15 +226,15 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${outfit.variable} font-sans antialiased`}>
+      <body className={`${outfit.variable} font-sans antialiased bg-white text-[#1c1d20]`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          forcedTheme="light"
           disableTransitionOnChange
         >
           <Navbar dictionary={dictionary} lang={lang} />
-          <main className="pt-16">
+          <main>
             {children}
           </main>
           <Analytics />

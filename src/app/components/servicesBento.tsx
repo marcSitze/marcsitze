@@ -1,22 +1,38 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { SERVICE_PACKAGES } from "@/data/resume";
-import {
-  Smartphone,
-  LayoutDashboard,
-  CreditCard,
-  Layers,
-  CheckCircle2,
-  ArrowRight,
-  Gauge,
-  ShieldCheck,
-  WifiOff,
-  Bell,
-  TrendingUp,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { gsap, useGSAP, attachMagnetic, MOTION_SAFE_QUERY } from "@/lib/gsap";
+
+const SERVICE_META: Record<
+  string,
+  {
+    index: string;
+    specTag: string;
+    cta: string;
+  }
+> = {
+  "mobile-apps": {
+    index: "01",
+    specTag: "React Native • Expo — 60 FPS Native",
+    cta: "Inquire About Mobile App",
+  },
+  dashboards: {
+    index: "02",
+    specTag: "Live Operations Console — Real-Time Data",
+    cta: "Inquire About Dashboard",
+  },
+  "fintech-systems": {
+    index: "03",
+    specTag: "Gateway Success Rate — 99.4% SLA",
+    cta: "Inquire About Fintech",
+  },
+  "frontend-arch": {
+    index: "04",
+    specTag: "Google Lighthouse — 99/100 Standard",
+    cta: "Inquire About Architecture",
+  },
+};
 
 export default function ServicesBento({
   onSelectService,
@@ -24,6 +40,7 @@ export default function ServicesBento({
   onSelectService?: (serviceId: string) => void;
   isDark?: boolean;
 }) {
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   const handleInquire = (serviceId: string) => {
     if (onSelectService) {
@@ -34,339 +51,249 @@ export default function ServicesBento({
     }
   };
 
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_SAFE_QUERY, () => {
+        // Masked headline reveal
+        gsap.from("[data-services-heading]", {
+          yPercent: 105,
+          opacity: 0,
+          duration: 0.95,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: "[data-services-header]",
+            start: "top 86%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        // Staggered card entrance
+        gsap.utils.toArray<HTMLElement>("[data-service-card]").forEach((card, idx) => {
+          gsap.from(card, {
+            y: 60,
+            autoAlpha: 0,
+            duration: 0.85,
+            delay: (idx % 2) * 0.1,
+            ease: "power3.out",
+            clearProps: "transform",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          });
+
+          const divider = card.querySelector<HTMLElement>("[data-service-divider]");
+          if (divider) {
+            gsap.fromTo(
+              divider,
+              { scaleX: 0 },
+              {
+                scaleX: 1,
+                transformOrigin: "left center",
+                duration: 0.9,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 84%",
+                  toggleActions: "play none none reverse",
+                },
+              }
+            );
+          }
+        });
+
+        // Subtle opposing column parallax on desktop
+        if (window.innerWidth >= 1024) {
+          gsap.fromTo(
+            "[data-service-col-offset]",
+            { y: 36 },
+            {
+              y: -36,
+              ease: "none",
+              scrollTrigger: {
+                trigger: "[data-services-grid]",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+              },
+            }
+          );
+        }
+
+        const magnetics = section.querySelectorAll<HTMLElement>("[data-magnetic]");
+        const cleanup = attachMagnetic(magnetics, 0.25);
+        return () => cleanup();
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef }
+  );
+
   return (
-    <section id="services" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 max-w-6xl">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Turnkey Solutions</span>
-          </div> */}
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
-            Packaged Engineering Services
+    <section
+      ref={sectionRef}
+      id="services"
+      className="relative w-full bg-white px-6 sm:px-14 lg:px-24 py-[110px] sm:py-[145px]"
+    >
+      {/* Left-Aligned Section Headline Block */}
+      <div data-services-header className="max-w-3xl text-left mb-16 sm:mb-20">
+        <div className="overflow-hidden">
+          <h2
+            data-services-heading
+            className="text-[clamp(36px,5.2vw,60px)] leading-[1.07] tracking-[0.02em] text-[#1c1d20]"
+          >
+            Services
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            High-leverage engineering leadership tailored for ambitious startups and enterprises looking to launch fast, scale securely, and dominate their category.
-          </p>
         </div>
+        <p className="mt-5 text-[15px] leading-[1.66] text-[#6b6e72] max-w-2xl">
+          High-leverage engineering tailored for ambitious startups and enterprises — from cross-platform mobile apps and data dashboards to resilient fintech systems.
+        </p>
+      </div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Card 1: Mobile App Development (6 Cols) */}
-          <div className="lg:col-span-6 rounded-3xl border border-black/10 dark:border-white/10 bg-card/70 dark:bg-zinc-950/70 backdrop-blur-xl p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
+      {/* Light Editorial Surface Grid: 1 Primary Accent Card + 3 Soft Neutral Cards */}
+      <div
+        data-services-grid
+        className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch"
+      >
+        {SERVICE_PACKAGES.map((pkg, idx) => {
+          const meta = SERVICE_META[pkg.id] || {
+            index: String(idx + 1).padStart(2, "0"),
+            specTag: pkg.badge,
+            cta: "Inquire",
+          };
 
-            <div className="relative z-10">
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="p-3 rounded-2xl bg-sky-500/10 text-sky-400">
-                  <Smartphone className="w-6 h-6" />
-                </div>
-                <Badge className="bg-sky-500/10 text-sky-400 border-sky-500/20 text-xs font-bold">
-                  {SERVICE_PACKAGES[0]?.badge || "iOS & Android"}
-                </Badge>
-              </div>
+          // Strictly ONE primary accent card in the section
+          const isAccentCard = idx === 0;
+          const isOffsetColumn = idx % 2 === 1;
 
-              <h3 className="text-2xl font-bold tracking-tight mb-2">
-                {SERVICE_PACKAGES[0]?.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                {SERVICE_PACKAGES[0]?.tagline}
-              </p>
-
-              {/* Interactive Micro-Widget: Cross-Platform Mobile Build Status */}
-              <div className="rounded-2xl border border-white/10 bg-zinc-950/90 p-4 mb-6 shadow-inner space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-white/10 text-[11px] text-muted-foreground">
-                  <div className="flex items-center gap-2 font-mono">
-                    <Smartphone className="w-3.5 h-3.5 text-sky-400" />
-                    <span>React Native • Expo</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
-                    <span className="text-emerald-400 font-semibold">60 FPS Native</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="rounded-xl bg-white/5 border border-white/5 p-2.5">
-                    <p className="text-xs font-bold text-sky-400">iOS + Android</p>
-                    <p className="text-[10px] text-zinc-400 mt-0.5">Single Codebase</p>
-                  </div>
-                  <div className="rounded-xl bg-white/5 border border-white/5 p-2.5">
-                    <p className="text-xs font-bold text-emerald-400">Offline Sync</p>
-                    <p className="text-[10px] text-zinc-400 mt-0.5">Instant Cache</p>
-                  </div>
-                  <div className="rounded-xl bg-white/5 border border-white/5 p-2.5">
-                    <p className="text-xs font-bold text-indigo-400">OTA Updates</p>
-                    <p className="text-[10px] text-zinc-400 mt-0.5">Zero Downtime</p>
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center text-[11px] text-zinc-400 pt-1">
-                  <span className="flex items-center gap-1">
-                    <WifiOff className="w-3.5 h-3.5 text-sky-400" />
-                    <span>Offline-First Ready</span>
-                  </span>
-                  <span className="flex items-center gap-1 text-zinc-400">
-                    <Bell className="w-3.5 h-3.5 text-sky-400" />
-                    <span>Real-Time Push Alerts</span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Deliverables */}
-              <ul className="space-y-2.5 mb-6">
-                {SERVICE_PACKAGES[0]?.deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-foreground/90">
-                    <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="relative z-10 pt-4 border-t border-border/50 flex flex-wrap items-center justify-between gap-4">
-              <span className="text-xs text-muted-foreground">
-                <strong>Best for:</strong> {SERVICE_PACKAGES[0]?.bestFor}
-              </span>
-              <Button
-                onClick={() => handleInquire("mobile-apps")}
-                className="rounded-full gap-2 text-xs font-semibold px-5"
+          return (
+            <div
+              key={pkg.id}
+              data-service-col-offset={isOffsetColumn ? "" : undefined}
+              className="will-change-transform flex"
+            >
+              <article
+                data-service-card
+                className={`w-full rounded-[10px] p-6 sm:p-9 flex flex-col justify-between text-left ${
+                  isAccentCard
+                    ? "bg-primary text-white"
+                    : "bg-[#f3f3f4] text-[#1c1d20]"
+                }`}
               >
-                <span>Inquire About Mobile App</span>
-                <ArrowRight size={14} />
-              </Button>
-            </div>
-          </div>
-
-          {/* Card 2: Dashboards & Admin Portals (6 Cols) */}
-          <div className="lg:col-span-6 rounded-3xl border border-black/10 dark:border-white/10 bg-card/70 dark:bg-zinc-950/70 backdrop-blur-xl p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
-
-            <div className="relative z-10">
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400">
-                  <LayoutDashboard className="w-6 h-6" />
-                </div>
-                <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-xs font-bold">
-                  {SERVICE_PACKAGES[1]?.badge || "Data & Analytics"}
-                </Badge>
-              </div>
-
-              <h3 className="text-2xl font-bold tracking-tight mb-2">
-                {SERVICE_PACKAGES[1]?.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                {SERVICE_PACKAGES[1]?.tagline}
-              </p>
-
-              {/* Interactive Micro-Widget: Live Analytics Dashboard Preview */}
-              <div className="rounded-2xl border border-white/10 bg-zinc-950/90 p-4 mb-6 shadow-inner space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-white/10 text-[11px] text-muted-foreground">
-                  <div className="flex items-center gap-2 font-mono">
-                    <LayoutDashboard className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>Live Operations Console</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-emerald-400 font-semibold">
-                    <TrendingUp className="w-3.5 h-3.5" />
-                    <span>+24.8% Growth</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="rounded-xl bg-white/5 border border-white/5 p-2">
-                    <p className="text-[10px] text-zinc-400">Active Users</p>
-                    <p className="text-sm font-black text-white">12,480</p>
-                  </div>
-                  <div className="rounded-xl bg-white/5 border border-white/5 p-2">
-                    <p className="text-[10px] text-zinc-400">Conversion</p>
-                    <p className="text-sm font-black text-cyan-400">94.2%</p>
-                  </div>
-                  <div className="rounded-xl bg-white/5 border border-white/5 p-2">
-                    <p className="text-[10px] text-zinc-400">Query Speed</p>
-                    <p className="text-sm font-black text-emerald-400">42ms</p>
-                  </div>
-                </div>
-
-                <div className="flex items-end gap-1.5 h-10 pt-1 px-1">
-                  {[38, 52, 46, 68, 62, 80, 74, 92, 86, 100].map((height, idx) => (
-                    <div
-                      key={idx}
-                      style={{ height: `${height}%` }}
-                      className={`flex-1 rounded-t-sm ${
-                        idx >= 8 ? "bg-cyan-400" : "bg-cyan-500/35"
+                <div>
+                  {/* Metadata Caption Row */}
+                  <div className="flex items-center justify-between gap-4 mb-7">
+                    <span
+                      className={`text-[12px] ${
+                        isAccentCard ? "text-white/85" : "text-[#6b6e72]"
                       }`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Deliverables */}
-              <ul className="space-y-2.5 mb-6">
-                {SERVICE_PACKAGES[1]?.deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-foreground/90">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="relative z-10 pt-4 border-t border-border/50 flex flex-wrap items-center justify-between gap-4">
-              <span className="text-xs text-muted-foreground">
-                <strong>Best for:</strong> {SERVICE_PACKAGES[1]?.bestFor}
-              </span>
-              <Button
-                onClick={() => handleInquire("dashboards")}
-                className="rounded-full gap-2 text-xs font-semibold px-5"
-              >
-                <span>Inquire About Dashboard</span>
-                <ArrowRight size={14} />
-              </Button>
-            </div>
-          </div>
-
-          {/* Card 3: Fintech & High-Concurrency Systems (5 Cols) */}
-          <div className="lg:col-span-5 rounded-3xl border border-black/10 dark:border-white/10 bg-card/70 dark:bg-zinc-950/70 backdrop-blur-xl p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
-
-            <div className="relative z-10">
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400">
-                  <CreditCard className="w-6 h-6" />
-                </div>
-                <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-xs font-bold">
-                  {SERVICE_PACKAGES[2]?.badge || "Enterprise Grade"}
-                </Badge>
-              </div>
-
-              <h3 className="text-2xl font-bold tracking-tight mb-2">
-                {SERVICE_PACKAGES[2]?.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                {SERVICE_PACKAGES[2]?.tagline}
-              </p>
-
-              {/* Interactive Micro-Widget: Fintech SLA Status */}
-              <div className="rounded-2xl border border-white/10 bg-zinc-950/90 p-4 mb-6 shadow-inner space-y-3">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-muted-foreground">Gateway Success Rate</span>
-                  <span className="font-bold text-emerald-400">99.4%</span>
-                </div>
-                <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-emerald-400 h-full rounded-full w-[99.4%]" />
-                </div>
-                <div className="flex justify-between items-center text-[11px] text-zinc-400 pt-1">
-                  <span className="flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Multi-Currency Routing</span>
-                  </span>
-                  <span className="text-zinc-500">Zero-Loss Idempotency</span>
-                </div>
-              </div>
-
-              {/* Deliverables */}
-              <ul className="space-y-2.5 mb-6">
-                {SERVICE_PACKAGES[2]?.deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-foreground/90">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="relative z-10 pt-4 border-t border-border/50 flex flex-wrap items-center justify-between gap-4">
-              <span className="text-xs text-muted-foreground">
-                <strong>Best for:</strong> {SERVICE_PACKAGES[2]?.bestFor}
-              </span>
-              <Button
-                variant="outline"
-                onClick={() => handleInquire("fintech-systems")}
-                className="rounded-full gap-2 text-xs font-semibold px-5"
-              >
-                <span>Inquire About Fintech</span>
-                <ArrowRight size={14} />
-              </Button>
-            </div>
-          </div>
-
-          {/* Card 4: Frontend Leadership & Design Systems (7 Cols) */}
-          <div className="lg:col-span-7 rounded-3xl border border-black/10 dark:border-white/10 bg-card/70 dark:bg-zinc-950/70 backdrop-blur-xl p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
-            <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
-
-            <div className="relative z-10">
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400">
-                  <Layers className="w-6 h-6" />
-                </div>
-                <Badge className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20 text-xs font-bold">
-                  {SERVICE_PACKAGES[3]?.badge || "Strategic ROI"}
-                </Badge>
-              </div>
-
-              <h3 className="text-2xl font-bold tracking-tight mb-2">
-                {SERVICE_PACKAGES[3]?.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                {SERVICE_PACKAGES[3]?.tagline}
-              </p>
-
-              {/* Lighthouse 100/100 Micro-Widget */}
-              <div className="rounded-2xl border border-white/10 bg-zinc-950/90 p-5 mb-6 shadow-inner flex flex-col items-center text-center">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                  <Gauge className="w-4 h-4 text-emerald-400" />
-                  <span>Google Lighthouse Optimization Standard</span>
-                </span>
-
-                <div className="grid grid-cols-4 gap-3 w-full">
-                  {[
-                    { label: "Performance", score: "99" },
-                    { label: "Accessibility", score: "100" },
-                    { label: "Best Practices", score: "100" },
-                    { label: "SEO", score: "100" },
-                  ].map((gauge, idx) => (
-                    <div key={idx} className="flex flex-col items-center">
-                      <div className="w-12 h-12 rounded-full border-2 border-emerald-400 flex items-center justify-center bg-emerald-500/10 text-emerald-400 font-black text-sm mb-1.5 shadow-sm shadow-emerald-500/20">
-                        {gauge.score}
-                      </div>
-                      <span className="text-[10px] text-muted-foreground truncate w-full">
-                        {gauge.label}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <span className="text-[11px] text-zinc-400 mt-4">
-                  Sub-second LCP • Zero Cumulative Layout Shift • GPU-Accelerated 60FPS
-                </span>
-              </div>
-
-              {/* Deliverables */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                {SERVICE_PACKAGES[3]?.deliverables.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-foreground/90">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />
-                    <span>{item}</span>
+                    >
+                      {meta.index} — {pkg.badge}
+                    </span>
+                    <span
+                      className={`text-[10px] uppercase ${
+                        isAccentCard ? "text-white/80" : "text-[#6b6e72]"
+                      }`}
+                    >
+                      {meta.specTag}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            <div className="relative z-10 pt-4 border-t border-border/50 flex flex-wrap items-center justify-between gap-4">
-              <span className="text-xs text-muted-foreground">
-                <strong>Best for:</strong> {SERVICE_PACKAGES[3]?.bestFor}
-              </span>
-              <Button
-                onClick={() => handleInquire("frontend-arch")}
-                className="rounded-full gap-2 text-xs font-semibold px-6"
-              >
-                <span>Inquire About Architecture</span>
-                <ArrowRight size={14} />
-              </Button>
+                  {/* Card Title */}
+                  <h3
+                    className={`text-[26px] sm:text-[33px] leading-[1.18] mb-4 ${
+                      isAccentCard ? "text-white" : "text-[#1c1d20]"
+                    }`}
+                  >
+                    {pkg.title}
+                  </h3>
+
+                  {/* Body Copy */}
+                  <p
+                    className={`text-[15px] leading-[1.66] mb-8 ${
+                      isAccentCard ? "text-white/90" : "text-[#6b6e72]"
+                    }`}
+                  >
+                    {pkg.tagline}
+                  </p>
+
+                  {/* Hairline Divider */}
+                  <div
+                    data-service-divider
+                    className={`h-px w-full mb-6 will-change-transform ${
+                      isAccentCard ? "bg-white/25" : "bg-[#1c1d20]/12"
+                    }`}
+                  />
+
+                  {/* Deliverables */}
+                  <ul className="space-y-3 mb-9">
+                    {pkg.deliverables.map((item, i) => (
+                      <li
+                        key={i}
+                        className={`flex items-start gap-3 text-[14px] leading-[1.5] ${
+                          isAccentCard ? "text-white/95" : "text-[#1c1d20]/90"
+                        }`}
+                      >
+                        <span
+                          className={`mt-2 w-1 h-1 rounded-full shrink-0 ${
+                            isAccentCard ? "bg-white" : "bg-[#1c1d20]"
+                          }`}
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Footer Action Row */}
+                <div
+                  className={`pt-6 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-5 ${
+                    isAccentCard ? "border-white/25" : "border-[#1c1d20]/12"
+                  }`}
+                >
+                  <p
+                    className={`text-[12px] leading-[1.45] max-w-xs ${
+                      isAccentCard ? "text-white/85" : "text-[#6b6e72]"
+                    }`}
+                  >
+                    {pkg.bestFor}
+                  </p>
+
+                  <button
+                    type="button"
+                    data-magnetic
+                    onClick={() => handleInquire(pkg.id)}
+                    className={`ds-pill shrink-0 inline-flex items-center gap-3 cursor-pointer ${
+                      isAccentCard
+                        ? "bg-[#1c1d20] text-white hover:bg-[var(--primary-deep)] ds-inset-ring-dark"
+                        : "ds-pill-light"
+                    }`}
+                  >
+                    <span data-magnetic-text>{meta.cta}</span>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                      aria-hidden="true"
+                    >
+                      <path d="M2 2L12 12" />
+                      <path d="M12 4V12H4" />
+                    </svg>
+                  </button>
+                </div>
+              </article>
             </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </section>
   );

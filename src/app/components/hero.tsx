@@ -1,146 +1,293 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, CheckCircle2, Globe2, ShieldCheck } from "lucide-react";
+import React, { useRef } from "react";
+import Image from "next/image";
+import { MarcHero } from "@/assets";
 import { getDictionary, LocaleType } from "../dictionaries";
+import { gsap, ScrollTrigger, useGSAP, MOTION_SAFE_QUERY } from "@/lib/gsap";
 
 export default function Hero({
   dictionary,
-  onOpenInquiry,
+  lang = "en",
 }: {
   isDark?: boolean;
   lang?: LocaleType;
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
   onOpenInquiry?: () => void;
 }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+  const heroRef = useRef<HTMLElement | null>(null);
+  const firstTextRef = useRef<HTMLSpanElement | null>(null);
+  const secondTextRef = useRef<HTMLSpanElement | null>(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  }, []);
+  const isFr = lang === "fr";
+
+  useGSAP(
+    () => {
+      const hero = heroRef.current;
+      if (!hero) return;
+
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_SAFE_QUERY, () => {
+        // 1. Premium entrance choreography
+        const entranceTl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+        entranceTl
+          .fromTo(
+            "[data-hero-portrait]",
+            { scale: 1.05, yPercent: 3 },
+            { scale: 1, yPercent: 0, duration: 1.35, ease: "power3.out" },
+            0
+          )
+          .from(
+            "[data-hero-location]",
+            { xPercent: -100, opacity: 0, duration: 1, ease: "power4.out" },
+            0.25
+          )
+          .from(
+            "[data-hero-role-line]",
+            { yPercent: 110, opacity: 0, duration: 0.95, stagger: 0.1 },
+            0.3
+          )
+          .from(
+            "[data-hero-arrow]",
+            { x: -12, y: -12, opacity: 0, duration: 0.8 },
+            0.25
+          )
+          .from(
+            "[data-hero-marquee-wrap]",
+            { yPercent: 35, opacity: 0, duration: 1.15, ease: "power4.out" },
+            0.2
+          );
+
+        // 2. Continuous rotating globe icon inside location pill
+        gsap.to("[data-hero-globe]", {
+          rotation: 360,
+          duration: 16,
+          repeat: -1,
+          ease: "none",
+          transformOrigin: "50% 50%",
+        });
+
+        // 3. Full-bleed portrait scroll parallax + subtle depth drift
+        gsap.to("[data-hero-portrait-wrap]", {
+          yPercent: 10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        // 4. Role block & arrow subtle scroll-linked drift
+        gsap.to("[data-hero-role-block]", {
+          y: -60,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.7,
+          },
+        });
+
+        gsap.to("[data-hero-arrow]", {
+          rotation: 45,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.5,
+          },
+        });
+
+        // 5. Signature Dennis Snellenberg 216px scroll-reactive kinetic name ribbon
+        let xPercent = 0;
+        let direction = -1;
+
+        ScrollTrigger.create({
+          trigger: document.documentElement,
+          start: 0,
+          end: "max",
+          onUpdate: (self) => {
+            if (self.direction !== 0) {
+              direction = self.direction * -1;
+            }
+          },
+        });
+
+        if (sliderRef.current) {
+          gsap.to(sliderRef.current, {
+            x: -260,
+            ease: "none",
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "bottom top",
+              scrub: 0.35,
+            },
+          });
+        }
+
+        const tickerFn = () => {
+          if (!firstTextRef.current || !secondTextRef.current) return;
+          if (xPercent <= -100) {
+            xPercent = 0;
+          } else if (xPercent > 0) {
+            xPercent = -100;
+          }
+          gsap.set(firstTextRef.current, { xPercent });
+          gsap.set(secondTextRef.current, { xPercent });
+          xPercent += 0.055 * direction;
+        };
+
+        gsap.ticker.add(tickerFn);
+
+        return () => {
+          gsap.ticker.remove(tickerFn);
+        };
+      });
+
+      return () => mm.revert();
+    },
+    { scope: heroRef }
+  );
 
   return (
-    <div
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden py-24 px-4"
+    <section
+      ref={heroRef}
+      aria-label="Hero"
+      className="relative h-[100svh] min-h-[680px] w-full bg-[#999d9e] overflow-hidden select-none"
     >
-      {/* Ambient Spotlight Following Cursor */}
+      {/* Full-Height Centered Transparent Portrait — Fully Visible on All Screens */}
       <div
-        className="pointer-events-none absolute inset-0 transition-opacity duration-500 ease-out"
-        style={{
-          opacity: isHovered ? 1 : 0.4,
-          background: `radial-gradient(700px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(14, 165, 233, 0.15), rgba(99, 102, 241, 0.08) 40%, transparent 80%)`,
-        }}
-      />
-
-      {/* Decorative ambient background mesh blobs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-primary/10 dark:bg-sky-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-1/4 w-[400px] h-[300px] bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none -z-10" />
-
-      {/* Hero Content Container */}
-      <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center">
-        {/* Availability Status Badge */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mb-8 backdrop-blur-md shadow-sm shadow-emerald-500/10"
-        >
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-          </span>
-          <span>{dictionary.hero.badge}</span>
-        </motion.div> */}
-
-        {/* Hero Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6"
-        >
-          <span className="block text-foreground font-black">
-            {dictionary.hero.greeting}
-          </span>
-          <span className="block mt-2 bg-gradient-to-r from-sky-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
-            {dictionary.hero.title}
-          </span>
-        </motion.h1>
-
-        {/* Hero Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 font-normal"
-        >
-          {dictionary.hero.subtitle}
-        </motion.p>
-
-        {/* Dual Primary Call to Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-14"
-        >
-          {onOpenInquiry ? (
-            <button
-              onClick={onOpenInquiry}
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/95 shadow-lg shadow-primary/25 transition-all duration-200 hover:scale-105 active:scale-95"
-            >
-              <span>{dictionary.hero.primaryCta}</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </button>
-          ) : (
-            <a
-              href="#contact"
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold hover:bg-primary/95 shadow-lg shadow-primary/25 transition-all duration-200 hover:scale-105 active:scale-95"
-            >
-              <span>{dictionary.hero.primaryCta}</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </a>
-          )}
-
-          <a
-            href="#portfolio"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-black/15 dark:border-white/15 bg-card/60 dark:bg-white/5 hover:bg-card/90 dark:hover:bg-white/10 text-foreground font-semibold backdrop-blur-md shadow-sm transition-all duration-200 hover:scale-105 active:scale-95"
-          >
-            {/* <Sparkles className="w-4 h-4 text-primary" /> */}
-            <span>{dictionary.hero.secondaryCta}</span>
-          </a>
-        </motion.div>
-
-        {/* Trust Badges Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-muted-foreground pt-4 border-t border-border/40"
-        >
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>{dictionary.hero.experienceBadge}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-sky-500" />
-            <span>Fintech & AI Platforms</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Globe2 className="w-4 h-4 text-indigo-400" />
-            <span>{dictionary.hero.timezone}</span>
-          </div>
-        </motion.div>
+        data-hero-portrait-wrap
+        className="absolute inset-x-0 bottom-0 top-12 sm:top-8 flex items-end justify-center pointer-events-none will-change-transform"
+      >
+        <div className="relative w-full h-full max-w-[92vw] sm:max-w-[760px] lg:max-w-[900px]">
+          <Image
+            data-hero-portrait
+            src={MarcHero}
+            alt="Marc Sitze — Senior Frontend & Full-Stack Engineer"
+            fill
+            priority
+            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 760px, 900px"
+            className="object-contain object-bottom will-change-transform"
+          />
+        </div>
       </div>
-    </div>
+
+      {/* Subtle top & bottom editorial legibility scrims preserving clean #999d9e studio feel */}
+      {/* <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#1c1d20]/25 via-transparent to-[#1c1d20]/35" /> */}
+
+      {/* Mid-Left Location Pill Badge (Dennis Snellenberg Spec) */}
+      <div
+        data-hero-location
+        className="hidden sm:flex items-center gap-6 absolute left-0 top-[44%] -translate-y-1/2 z-20 bg-[#1c1d20] rounded-r-[36.72px] py-[18px] pl-6 pr-[22px]"
+      >
+        <div className="text-[12px] leading-[1.2] text-white tracking-[0.05em]">
+          {isFr ? (
+            <>
+              <span className="block">Basé</span>
+              <span className="block">au</span>
+              <span className="block">Cameroun</span>
+            </>
+          ) : (
+            <>
+              <span className="block">Located</span>
+              <span className="block">in</span>
+              <span className="block">Cameroon</span>
+            </>
+          )}
+        </div>
+
+        <div className="w-11 h-11 rounded-full bg-[#494a4d] flex items-center justify-center shrink-0">
+          <svg
+            data-hero-globe
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ffffff"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <ellipse cx="12" cy="12" rx="4.5" ry="10" />
+            <path d="M2 12h20" />
+            <path d="M4.5 7.5h15" />
+            <path d="M4.5 16.5h15" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Mid-Right Thin 1px Arrow Indicator + Role Descriptor */}
+      <div
+        data-hero-role-block
+        className="absolute left-5 top-20 sm:left-auto sm:right-12 lg:right-20 sm:top-[42%] sm:-translate-y-1/2 z-20 flex flex-col items-start gap-4 sm:gap-6 will-change-transform"
+      >
+        <svg
+          data-hero-arrow
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="1"
+          aria-hidden="true"
+          className="will-change-transform"
+        >
+          <path d="M2 2L16 16" />
+          <path d="M16 5V16H5" />
+        </svg>
+
+        <div className="text-[20px] sm:text-[26px] lg:text-[33px] leading-[1.2] tracking-[0.05em] text-white">
+          <span className="block overflow-hidden">
+            <span data-hero-role-line className="block">
+              {isFr ? "Ingénieur" : "Freelance"}
+            </span>
+          </span>
+          <span className="block overflow-hidden">
+            <span data-hero-role-line className="block">
+              {dictionary.hero.title}
+            </span>
+          </span>
+        </div>
+      </div>
+
+      {/* Bottom-Left Giant 216px Display Name Bleeding Off Canvas */}
+      <div
+        data-hero-marquee-wrap
+        className="absolute bottom-5 sm:bottom-8 left-0 right-0 z-20 overflow-hidden pointer-events-none"
+      >
+        <div
+          ref={sliderRef}
+          className="relative flex whitespace-nowrap will-change-transform"
+        >
+          <h1 className="sr-only">
+            {dictionary.hero.greeting} — {dictionary.hero.title}
+          </h1>
+          <span
+            ref={firstTextRef}
+            aria-hidden="true"
+            className="inline-block pr-10 sm:pr-16 text-[clamp(68px,14.5vw,216px)] leading-[1] tracking-[0.05em] text-white will-change-transform"
+          >
+            {dictionary.hero.greeting} —
+          </span>
+          <span
+            ref={secondTextRef}
+            aria-hidden="true"
+            className="inline-block pr-10 sm:pr-16 text-[clamp(68px,14.5vw,216px)] leading-[1] tracking-[0.05em] text-white will-change-transform"
+          >
+            {dictionary.hero.greeting} —
+          </span>
+        </div>
+      </div>
+    </section>
   );
 }

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getDictionary, LocaleType } from "../../dictionaries";
 import { USER } from "@/data/resume";
-import { MarcSitze } from "@/assets";
+import { MarcAbout } from "@/assets";
 import Reveal from "@/components/reveal";
 import {
   Quote,
@@ -116,29 +116,21 @@ export default async function AboutPage({
   };
 
   return (
-    <div className="relative min-h-screen py-20 overflow-hidden">
-      {/* Decorative ambient background glow blobs */}
-      <div className="absolute top-10 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 pointer-events-none animate-pulse duration-4000" />
-      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -z-10 pointer-events-none animate-pulse duration-6000" />
-
+    <div className="relative min-h-screen pt-28 pb-20 overflow-hidden bg-white">
       <div className="container mx-auto px-4 max-w-5xl">
         {/* Profile Hero Section */}
         <Reveal className="mb-20">
           <div className="flex flex-col md:flex-row gap-12 items-center">
-            {/* Interactive Profile Image Card */}
-            <div className="relative group shrink-0 w-48 h-48 md:w-64 md:h-64">
-              {/* Spinning gradient ring background on hover */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-indigo-600 opacity-60 blur-sm group-hover:opacity-100 group-hover:blur-md transition duration-500 group-hover:scale-105" />
-
-              {/* Main image container with Next.js Image */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-card">
+            {/* Editorial Studio Profile Portrait */}
+            <div className="relative group shrink-0 w-56 h-56 md:w-72 md:h-72">
+              <div className="relative w-full h-full rounded-[10px] overflow-hidden bg-[#f3f3f4] ds-inset-ring">
                 <Image
-                  src={MarcSitze}
+                  src={MarcAbout}
                   alt={`${USER.name} - Senior Frontend Lead & Full-Stack Engineer`}
-                  width={320}
-                  height={320}
+                  fill
+                  sizes="(max-width: 768px) 224px, 288px"
                   priority
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </div>
