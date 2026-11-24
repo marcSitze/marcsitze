@@ -49,10 +49,10 @@ export default function Contact({
       <div className="container mx-auto px-4 max-w-5xl">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3">
+          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Initiate Collaboration</span>
-          </div>
+          </div> */}
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight mb-4">
             {dictionary.getinTouch.title}
           </h2>
@@ -110,7 +110,7 @@ export default function Contact({
                 onClick={() => setIsInquiryOpen(true)}
                 className="w-full sm:w-auto rounded-full px-6 py-5 gap-2 font-bold shadow-md shadow-primary/20 hover:scale-105 transition-transform"
               >
-                <Sparkles size={16} />
+                {/* <Sparkles size={16} /> */}
                 <span>Launch Project Scope Estimator</span>
               </Button>
             </div>

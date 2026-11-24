@@ -328,7 +328,7 @@ export default async function CaseStudyPage({
           {/* Technology Stack Badges */}
           <section className="mb-14 p-8 rounded-2xl bg-card/60 border border-border/60 backdrop-blur-md" aria-labelledby="technologies-title">
             <h2 id="technologies-title" className="text-xl font-bold tracking-tight mb-4 flex items-center gap-2 text-foreground">
-              <Sparkles className="w-5 h-5 text-primary" />
+              {/* <Sparkles className="w-5 h-5 text-primary" /> */}
               {dictionary.portfolio.techStack || "Core Technologies & Architecture"}
             </h2>
             <div className="flex flex-wrap gap-2">

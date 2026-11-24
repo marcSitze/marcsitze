@@ -48,7 +48,7 @@ export default function Hero({
       {/* Hero Content Container */}
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center">
         {/* Availability Status Badge */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -59,7 +59,7 @@ export default function Hero({
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
           <span>{dictionary.hero.badge}</span>
-        </motion.div>
+        </motion.div> */}
 
         {/* Hero Title */}
         <motion.h1
@@ -115,7 +115,7 @@ export default function Hero({
             href="#portfolio"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-black/15 dark:border-white/15 bg-card/60 dark:bg-white/5 hover:bg-card/90 dark:hover:bg-white/10 text-foreground font-semibold backdrop-blur-md shadow-sm transition-all duration-200 hover:scale-105 active:scale-95"
           >
-            <Sparkles className="w-4 h-4 text-primary" />
+            {/* <Sparkles className="w-4 h-4 text-primary" /> */}
             <span>{dictionary.hero.secondaryCta}</span>
           </a>
         </motion.div>

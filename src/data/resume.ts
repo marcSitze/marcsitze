@@ -73,17 +73,30 @@ export const socialLinks: ISocialLink[] = [
 
 export const SERVICE_PACKAGES: IServicePackage[] = [
   {
-    id: "ai-apps",
-    title: "AI & High-Performance Web Apps",
-    tagline: "Ultra-fast Next.js 15 web apps integrated with real-time conversational AI & LLM workflows.",
+    id: "mobile-apps",
+    title: "Mobile App Development",
+    tagline: "Cross-platform iOS & Android mobile apps engineered with React Native & Expo for smooth native performance.",
     deliverables: [
-      "Sub-second Next.js 15 App Router architecture",
-      "Streaming RAG & conversational AI interfaces",
-      "Vector search integration (OpenAI, Pinecone)",
-      "Zero-latency optimistic UI with React 19",
+      "Cross-platform iOS & Android apps (React Native & Expo)",
+      "Offline-first caching, local sync & push notifications",
+      "Fluid 60FPS navigation, maps & native device features",
+      "App Store & Google Play build and release pipelines",
     ],
-    bestFor: "Funded AI startups, document intelligence, and SaaS founders.",
-    badge: "Popular for AI Startups",
+    bestFor: "Startups, on-demand services, and consumer mobile products.",
+    badge: "iOS & Android",
+  },
+  {
+    id: "dashboards",
+    title: "Dashboards & Admin Portals",
+    tagline: "Data-driven Next.js & React dashboards engineered for real-time analytics, operations, and multi-role control.",
+    deliverables: [
+      "Real-time KPI charts, reporting & interactive tables",
+      "Role-based access control (RBAC) & audit trails",
+      "Fast server-side filtering, search & data exports",
+      "Scalable Next.js & TypeScript admin architectures",
+    ],
+    bestFor: "SaaS platforms, operations teams, and enterprise back-offices.",
+    badge: "Data & Analytics",
   },
   {
     id: "fintech-systems",
@@ -116,16 +129,21 @@ export const SERVICE_PACKAGES: IServicePackage[] = [
 export const services: IService[] = [
   {
     id: 0,
-    title: "AI & Full-Stack Web Apps",
-    description: "Developing scalable, high-speed web apps with Next.js 15, React 19, TypeScript, and modern AI/LLM integrations that delight users.",
+    title: "Mobile App Development",
+    description: "Building smooth, offline-ready cross-platform iOS and Android apps with React Native, Expo, and TypeScript.",
   },
   {
     id: 1,
+    title: "Dashboards & Admin Portals",
+    description: "Developing interactive, real-time analytics dashboards, SaaS back-offices, and data-rich management portals with Next.js and React.",
+  },
+  {
+    id: 2,
     title: "Fintech & Payment Architectures",
     description: "Engineering secure, multi-currency payment portals and transaction pipelines capable of processing millions in volume with high uptime.",
   },
   {
-    id: 2,
+    id: 3,
     title: "Frontend Leadership & UI Engineering",
     description: "Building production design systems, 60FPS micro-interactions, responsive cross-platform interfaces, and accessible multilingual applications.",
   },
@@ -142,7 +160,7 @@ export const USER: IUser = {
   title: "Senior Frontend Lead & Full-Stack Engineer",
   description:
     "Engineering high-performance AI web applications, resilient fintech payment portals, and scalable SaaS products. Over 4 years of technical leadership across distributed teams in Europe, North America, and Africa.",
-  cvLink: "/marc-sitze-fullstack.pdf",
+  cvLink: "/marc-sitze-cv-senior.pdf",
 };
 
 export const RESUME: IResume[] = [

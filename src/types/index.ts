@@ -95,7 +95,7 @@ export interface ICaseStudy {
 export type IPortfolio = ICaseStudy;
 
 export interface IProjectInquiryState {
-	projectType: "ai-webapp" | "fintech-portal" | "mobile-app" | "frontend-lead" | "code-audit";
+	projectType: "ai-webapp" | "dashboard" | "fintech-portal" | "mobile-app" | "frontend-lead" | "code-audit";
 	budgetRange: "<$3k" | "$3k-$10k" | "$10k-$25k" | "$25k+";
 	timeline: "immediate" | "within-month" | "exploring";
 	clientName: string;

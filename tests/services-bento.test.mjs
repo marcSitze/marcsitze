@@ -5,9 +5,10 @@ import path from "node:path";
 import { SERVICE_PACKAGES } from "../src/data/resume.ts";
 
 test("Services Bento - Data & Deliverables", () => {
-  assert.equal(SERVICE_PACKAGES.length, 3);
+  assert.equal(SERVICE_PACKAGES.length, 4);
   const ids = SERVICE_PACKAGES.map((s) => s.id);
-  assert.ok(ids.includes("ai-apps"));
+  assert.ok(ids.includes("mobile-apps"));
+  assert.ok(ids.includes("dashboards"));
   assert.ok(ids.includes("fintech-systems"));
   assert.ok(ids.includes("frontend-arch"));
 
@@ -23,7 +24,8 @@ test("Services Bento - Component & Micro-Widgets", () => {
   assert.ok(fs.existsSync(componentPath), "servicesBento.tsx must exist");
 
   const content = fs.readFileSync(componentPath, "utf-8");
-  assert.ok(content.includes("Google Lighthouse"), "Must include Lighthouse micro-widget");
-  assert.ok(content.includes("streamQuery"), "Must include AI code preview");
+  assert.ok(content.includes("React Native • Expo"), "Must include Mobile App preview");
+  assert.ok(content.includes("Live Operations Console"), "Must include Dashboard preview");
   assert.ok(content.includes("Gateway Success Rate"), "Must include Fintech SLA widget");
+  assert.ok(content.includes("Google Lighthouse"), "Must include Lighthouse micro-widget");
 });

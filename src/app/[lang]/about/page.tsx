@@ -145,10 +145,10 @@ export default async function AboutPage({
 
             {/* Profile Intro Info */}
             <div className="flex-1 text-center md:text-left">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3">
+              {/* <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3">
                 <Sparkles className="w-3.5 h-3.5" />
                 {about.getToKnowMe}
-              </span>
+              </span> */}
 
               <h1 className="text-4xl md:text-6xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-500 to-indigo-600 tracking-tight">
                 {about.title}

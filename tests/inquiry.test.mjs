@@ -8,9 +8,9 @@ test("Inquiry Modal - Component & Options", () => {
   assert.ok(fs.existsSync(modalPath), "inquiryModal.tsx must exist");
 
   const content = fs.readFileSync(modalPath, "utf-8");
-  assert.ok(content.includes("ai-webapp"), "Must support AI Web App category");
-  assert.ok(content.includes("fintech-portal"), "Must support Fintech & Payments category");
   assert.ok(content.includes("mobile-app"), "Must support Mobile App category");
+  assert.ok(content.includes("dashboard"), "Must support Dashboards category");
+  assert.ok(content.includes("fintech-portal"), "Must support Fintech & Payments category");
   assert.ok(content.includes("wa.me/237699576276"), "Must contain verified WhatsApp number");
   assert.ok(content.includes("marcsitze01@gmail.com"), "Must contain verified email");
 });

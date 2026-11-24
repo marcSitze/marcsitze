@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
-  Sparkles,
-  Bot,
+  Globe,
+  LayoutDashboard,
   CreditCard,
   Smartphone,
   Layers,
@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { AnalyticsEvents } from "@/lib/analytics";
 
 interface InquiryState {
-  projectType: "ai-webapp" | "fintech-portal" | "mobile-app" | "frontend-lead" | "code-audit";
+  projectType: "ai-webapp" | "dashboard" | "fintech-portal" | "mobile-app" | "frontend-lead" | "code-audit";
   budgetRange: "<$3k" | "$3k-$10k" | "$10k-$25k" | "$25k+";
   timeline: "immediate" | "within-month" | "exploring";
   clientName: string;
@@ -38,7 +38,7 @@ export default function InquiryModal({
   initialService?: string;
 }) {
   const [inquiry, setInquiry] = useState<InquiryState>({
-    projectType: (initialService as InquiryState["projectType"]) || "ai-webapp",
+    projectType: (initialService as InquiryState["projectType"]) || "mobile-app",
     budgetRange: "$3k-$10k",
     timeline: "immediate",
     clientName: "",
@@ -50,7 +50,8 @@ export default function InquiryModal({
 
   useEffect(() => {
     if (initialService) {
-      if (initialService === "ai-apps") setInquiry((prev) => ({ ...prev, projectType: "ai-webapp" }));
+      if (initialService === "mobile-apps") setInquiry((prev) => ({ ...prev, projectType: "mobile-app" }));
+      else if (initialService === "dashboards") setInquiry((prev) => ({ ...prev, projectType: "dashboard" }));
       else if (initialService === "fintech-systems") setInquiry((prev) => ({ ...prev, projectType: "fintech-portal" }));
       else if (initialService === "frontend-arch") setInquiry((prev) => ({ ...prev, projectType: "frontend-lead" }));
     }
@@ -75,10 +76,11 @@ export default function InquiryModal({
   };
 
   const projectTypes = [
-    { id: "ai-webapp", label: "AI Web App / LLM", icon: <Bot className="w-4 h-4" /> },
-    { id: "fintech-portal", label: "Fintech & Payments", icon: <CreditCard className="w-4 h-4" /> },
     { id: "mobile-app", label: "Mobile App (Expo)", icon: <Smartphone className="w-4 h-4" /> },
-    { id: "frontend-lead", label: "Frontend Lead / Contract", icon: <Layers className="w-4 h-4" /> },
+    { id: "dashboard", label: "Dashboards", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "fintech-portal", label: "Fintech & Payments", icon: <CreditCard className="w-4 h-4" /> },
+    { id: "ai-webapp", label: "Web App", icon: <Globe className="w-4 h-4" /> },
+    { id: "frontend-lead", label: "Contract", icon: <Layers className="w-4 h-4" /> },
     { id: "code-audit", label: "Speed & Code Audit", icon: <Search className="w-4 h-4" /> },
   ];
 
@@ -140,8 +142,8 @@ ${inquiry.clientName || ""}`;
           {/* Header */}
           <div className="flex items-start justify-between pb-6 border-b border-border/50">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-2">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-primary mb-2">
+                {/* <Sparkles className="w-3.5 h-3.5" /> */}
                 <span>Quick Project Estimator</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
@@ -181,11 +183,10 @@ ${inquiry.clientName || ""}`;
                           projectType: type.id as InquiryState["projectType"],
                         }))
                       }
-                      className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all text-left ${
-                        isSelected
-                          ? "border-primary bg-primary/10 text-primary shadow-sm"
-                          : "border-border/60 hover:bg-muted/40 text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all text-left ${isSelected
+                        ? "border-primary bg-primary/10 text-primary shadow-sm"
+                        : "border-border/60 hover:bg-muted/40 text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       <span className={isSelected ? "text-primary" : "text-muted-foreground"}>
                         {type.icon}
@@ -210,11 +211,10 @@ ${inquiry.clientName || ""}`;
                       key={budget}
                       type="button"
                       onClick={() => setInquiry((prev) => ({ ...prev, budgetRange: budget }))}
-                      className={`py-2 rounded-xl border text-xs font-bold transition-all text-center ${
-                        isSelected
-                          ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                          : "border-border/60 hover:bg-muted/40 text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`py-2 rounded-xl border text-xs font-bold transition-all text-center ${isSelected
+                        ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                        : "border-border/60 hover:bg-muted/40 text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       {budget}
                     </button>
@@ -236,11 +236,10 @@ ${inquiry.clientName || ""}`;
                       key={opt.id}
                       type="button"
                       onClick={() => setInquiry((prev) => ({ ...prev, timeline: opt.id }))}
-                      className={`py-2 px-2 rounded-xl border text-xs font-semibold transition-all text-center truncate ${
-                        isSelected
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-border/60 hover:bg-muted/40 text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`py-2 px-2 rounded-xl border text-xs font-semibold transition-all text-center truncate ${isSelected
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border/60 hover:bg-muted/40 text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       {opt.label}
                     </button>

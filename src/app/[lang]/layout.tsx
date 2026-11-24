@@ -182,9 +182,18 @@ export default async function RootLayout({
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "AI & High-Performance Web Apps",
+                name: "Mobile App Development",
                 description:
-                  "Ultra-fast Next.js 15 web apps with streaming RAG and conversational AI integrations.",
+                  "Cross-platform iOS & Android mobile apps engineered with React Native & Expo for smooth native performance.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Dashboards & Admin Portals",
+                description:
+                  "Data-driven Next.js & React dashboards engineered for real-time analytics, operations, and multi-role control.",
               },
             },
             {
